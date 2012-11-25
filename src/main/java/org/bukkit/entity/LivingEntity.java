@@ -605,4 +605,19 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
      * @return Whether the entity is invisible
      */
     public boolean isInvisible();
+
+    // Paper start
+    /**
+     * Get the number of arrows stuck in this entity
+     * @return Number of arrows stuck
+     */
+    int getArrowsStuck();
+
+    /**
+     * Set the number of arrows stuck in this entity
+     *
+     * @param arrows Number of arrows to stick in this entity
+     */
+    void setArrowsStuck(int arrows);
+    // Paper end
 }
