@@ -1442,6 +1442,16 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
     public class Spigot extends Entity.Spigot
     {
 
+        /**
+         * Gets the connection address of this player, regardless of whether it
+         * has been spoofed or not.
+         *
+         * @return the player's connection address
+         */
+        public InetSocketAddress getRawAddress()
+        {
+            throw new UnsupportedOperationException( "Not supported yet." );
+        }
     }
 
     @Override
