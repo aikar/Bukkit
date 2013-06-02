@@ -33,6 +33,10 @@
 
         <!-- See http://checkstyle.sourceforge.net/config_filters.html -->
         <module name="SuppressionCommentFilter"/>
+        <module name="SuppressionCommentFilter">
+            <property name="offCommentFormat" value="Spigot start"/>
+            <property name="onCommentFormat" value="Spigot end"/>
+        </module>
 
         <!-- See http://checkstyle.sourceforge.net/config_imports.html -->
         <module name="AvoidStarImport">
