@@ -21,34 +21,31 @@
  *  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.empireminecraft.api;
+package com.empireminecraft.api.meta;
 
-import com.empireminecraft.api.meta.EAPI_Meta;
-import org.apache.commons.lang.exception.ExceptionUtils;
+public interface MetaKey {
 
-public abstract class API {
+    /**
+     * Key name
+     * @return The key
+     */
+    String key();
 
-    public static EAPI_Entity entity;
-    public static EAPI_Misc misc;
-    public static EAPI_Meta meta;
-
-    public static String stack() {
-        return ExceptionUtils.getFullStackTrace(new Throwable());
+    /**
+     * Represents a key used for persistent metadata
+     */
+    interface PersistentKey extends MetaKey {
+        default PersistentKey append(String key) {
+            return Meta.createPersistentKey(key() + key);
+        }
     }
 
-    public static void exception(Throwable e) {
-        exception(null, e);
-    }
-
-    public static void exception(String msg, Throwable e) {
-        if (msg != null) {
-            System.err.println(msg);
-        }
-        if (e.getMessage() != null) {
-            System.err.println(e.getMessage());
-        }
-        for (String line : ExceptionUtils.getFullStackTrace(e).split("\n")) {
-            System.err.println(line);
+    /**
+     * Represents a key used for temporary metadata
+     */
+    interface TempKey extends MetaKey {
+        default TempKey append(String key) {
+            return Meta.createTempKey(key() + key);
         }
     }
 }

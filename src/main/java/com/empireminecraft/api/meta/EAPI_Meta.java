@@ -21,34 +21,33 @@
  *  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.empireminecraft.api;
+package com.empireminecraft.api.meta;
 
-import com.empireminecraft.api.meta.EAPI_Meta;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import com.empireminecraft.api.Vector3i;
+import com.empireminecraft.api.meta.MetaKey.TempKey;
+import org.bukkit.Chunk;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
+import org.bukkit.entity.Entity;
 
-public abstract class API {
+import java.util.Map;
 
-    public static EAPI_Entity entity;
-    public static EAPI_Misc misc;
-    public static EAPI_Meta meta;
+public interface EAPI_Meta {
+    PersistentMetaMap getTileEntityMetaMap(BlockState tileEntity, boolean isWrite);
 
-    public static String stack() {
-        return ExceptionUtils.getFullStackTrace(new Throwable());
-    }
+    PersistentMetaMap getBlockMetaMap(Location loc, boolean isWrite);
 
-    public static void exception(Throwable e) {
-        exception(null, e);
-    }
+    PersistentMetaMap getChunkMetaMap(Chunk chunk, boolean isWrite);
 
-    public static void exception(String msg, Throwable e) {
-        if (msg != null) {
-            System.err.println(msg);
-        }
-        if (e.getMessage() != null) {
-            System.err.println(e.getMessage());
-        }
-        for (String line : ExceptionUtils.getFullStackTrace(e).split("\n")) {
-            System.err.println(line);
-        }
-    }
+    TempMetaMap getChunkTempMetaMap(Chunk chunk, boolean isWrite);
+
+    Map<Vector3i,PersistentMetaMap> getChunkMetaData(Chunk chunk);
+
+    PersistentMetaMap getEntityMetaMap(Entity entity, boolean isWrite);
+
+    PersistentMetaMap getWorldMetaMap(World world);
+
+    Map<String,Object> getBlockTempMeta(Block block, boolean b);
 }

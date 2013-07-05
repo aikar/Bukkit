@@ -15,6 +15,7 @@ import org.bukkit.event.inventory.InventoryType;
  */
 public interface Inventory extends Iterable<ItemStack> {
 
+	public HashMap<String, Object> getMeta(); // EMC
     /**
      * Returns the size of the inventory
      *

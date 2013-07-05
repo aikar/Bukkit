@@ -23,32 +23,44 @@
 
 package com.empireminecraft.api;
 
-import com.empireminecraft.api.meta.EAPI_Meta;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import com.empireminecraft.api.meta.Meta;
 
-public abstract class API {
+@SuppressWarnings("PublicInnerClass")
+public final class Vector3i {
+    public final int x;
+    public final int y;
+    public final int z;
 
-    public static EAPI_Entity entity;
-    public static EAPI_Misc misc;
-    public static EAPI_Meta meta;
-
-    public static String stack() {
-        return ExceptionUtils.getFullStackTrace(new Throwable());
+    public Vector3i(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
-    public static void exception(Throwable e) {
-        exception(null, e);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) { return true; }
+        if (o == null || getClass() != o.getClass()) { return false; }
+
+        Vector3i vector = (Vector3i) o;
+
+        return (x == vector.x && z == vector.z && y == vector.y);
     }
 
-    public static void exception(String msg, Throwable e) {
-        if (msg != null) {
-            System.err.println(msg);
-        }
-        if (e.getMessage() != null) {
-            System.err.println(e.getMessage());
-        }
-        for (String line : ExceptionUtils.getFullStackTrace(e).split("\n")) {
-            System.err.println(line);
-        }
+    @Override
+    public int hashCode() {
+        int result = x;
+        result = result * 73 + y;
+        result = result * 73 + z;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "BlockPos{" +
+            "x=" + x +
+            ", y=" + y +
+            ", z=" + z +
+            '}';
     }
 }

@@ -1,6 +1,7 @@
 package org.bukkit.entity;
 
 import org.bukkit.Chunk;
+import com.empireminecraft.api.meta.TempMetaMap;
 import org.bukkit.Location;
 import org.bukkit.EntityEffect;
 import org.bukkit.Nameable;
@@ -192,6 +193,7 @@ public interface Entity extends Metadatable, CommandSender, Nameable {
      */
     public Server getServer();
 
+    public TempMetaMap getTempMeta(); // EMC
     /**
      * Gets the primary passenger of a vehicle. For vehicles that could have
      * multiple passengers, this will only return the primary passenger.

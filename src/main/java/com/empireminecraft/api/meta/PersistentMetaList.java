@@ -21,34 +21,53 @@
  *  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.empireminecraft.api;
+package com.empireminecraft.api.meta;
 
-import com.empireminecraft.api.meta.EAPI_Meta;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.Collection;
 
-public abstract class API {
-
-    public static EAPI_Entity entity;
-    public static EAPI_Misc misc;
-    public static EAPI_Meta meta;
-
-    public static String stack() {
-        return ExceptionUtils.getFullStackTrace(new Throwable());
+/**
+ * A type protected array for storing meta values
+ */
+@SuppressWarnings("PublicInnerClass")
+public class PersistentMetaList<T> extends ArrayList<T> {
+    public PersistentMetaList(int initialCapacity) {
+        super(initialCapacity);
     }
 
-    public static void exception(Throwable e) {
-        exception(null, e);
+    public PersistentMetaList() {
     }
 
-    public static void exception(String msg, Throwable e) {
-        if (msg != null) {
-            System.err.println(msg);
+    public PersistentMetaList(Collection<? extends T> c) {
+        super(c);
+    }
+
+    @Override
+    public boolean add(T o) {
+        if (!Meta.isValidPersistentMeta(o)) {
+            throw new InvalidParameterException();
         }
-        if (e.getMessage() != null) {
-            System.err.println(e.getMessage());
+        return super.add(o);
+    }
+
+    @Override
+    public T set(int index, T element) {
+        if (!Meta.isValidPersistentMeta(element)) {
+            throw new InvalidParameterException();
         }
-        for (String line : ExceptionUtils.getFullStackTrace(e).split("\n")) {
-            System.err.println(line);
+        return super.set(index, element);
+    }
+
+    @Override
+    public void add(int index, T element) {
+        if (!Meta.isValidPersistentMeta(element)) {
+            throw new InvalidParameterException();
         }
+        super.add(index, element);
+    }
+
+    public PersistentMetaList<T> clone()  {
+        return new PersistentMetaList<>(this);
     }
 }

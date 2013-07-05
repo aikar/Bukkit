@@ -21,34 +21,29 @@
  *  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.empireminecraft.api;
+package com.empireminecraft.customevents;
 
-import com.empireminecraft.api.meta.EAPI_Meta;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.bukkit.block.Block;
+import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
 
-public abstract class API {
-
-    public static EAPI_Entity entity;
-    public static EAPI_Misc misc;
-    public static EAPI_Meta meta;
-
-    public static String stack() {
-        return ExceptionUtils.getFullStackTrace(new Throwable());
+public class BlockWithPersistentMetaClearedEvent extends Event {
+    private final Block block;
+    public BlockWithPersistentMetaClearedEvent(Block block) {
+        this.block = block;
     }
 
-    public static void exception(Throwable e) {
-        exception(null, e);
+    public Block getBlock() {
+        return block;
     }
 
-    public static void exception(String msg, Throwable e) {
-        if (msg != null) {
-            System.err.println(msg);
-        }
-        if (e.getMessage() != null) {
-            System.err.println(e.getMessage());
-        }
-        for (String line : ExceptionUtils.getFullStackTrace(e).split("\n")) {
-            System.err.println(line);
-        }
+    private static final HandlerList handlers = new HandlerList();
+
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 }

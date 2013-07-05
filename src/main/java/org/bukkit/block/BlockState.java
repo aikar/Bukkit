@@ -209,4 +209,6 @@ public interface BlockState extends Metadatable {
      *         or 'virtual' (e.g. on an itemstack)
      */
     boolean isPlaced();
+
+    boolean isTileEntity(); // EMC
 }

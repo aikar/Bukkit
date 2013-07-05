@@ -21,34 +21,24 @@
  *  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.empireminecraft.api;
+package com.empireminecraft.api.meta;
 
-import com.empireminecraft.api.meta.EAPI_Meta;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import com.empireminecraft.api.meta.MetaKey.TempKey;
 
-public abstract class API {
+class TempKeyImpl implements TempKey {
+    private final String key;
 
-    public static EAPI_Entity entity;
-    public static EAPI_Misc misc;
-    public static EAPI_Meta meta;
-
-    public static String stack() {
-        return ExceptionUtils.getFullStackTrace(new Throwable());
+    TempKeyImpl(String key) {
+        this.key = key;
     }
 
-    public static void exception(Throwable e) {
-        exception(null, e);
+    @Override
+    public final String key() {
+        return key;
     }
 
-    public static void exception(String msg, Throwable e) {
-        if (msg != null) {
-            System.err.println(msg);
-        }
-        if (e.getMessage() != null) {
-            System.err.println(e.getMessage());
-        }
-        for (String line : ExceptionUtils.getFullStackTrace(e).split("\n")) {
-            System.err.println(line);
-        }
+    @Override
+    public String toString() {
+        return key;
     }
 }
