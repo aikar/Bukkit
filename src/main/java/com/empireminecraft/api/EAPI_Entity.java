@@ -23,5 +23,11 @@
 
 package com.empireminecraft.api;
 
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
+
 public interface EAPI_Entity {
+
+    byte[] serializeEntity(Entity craftentity);
+    Entity deserializeEntity(byte[] data, World world);
 }

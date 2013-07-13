@@ -22,6 +22,8 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
  */
 public interface Entity extends Metadatable, CommandSender, Nameable {
 
+    public boolean spawnAt(Location loc); // EMC
+    public boolean spawnAt(Location loc, org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason spawnReason); // EMC
     /**
      * Gets the entity's current position
      *
