@@ -125,6 +125,26 @@ public abstract class MetadataStoreBase<T> {
     }
 
     /**
+     * Removes all metadata in the metadata store that originates from the
+     * given plugin.
+     *
+     * @param owningPlugin the plugin requesting the invalidation.
+     * @throws IllegalArgumentException If plugin is null
+     */
+    public void removeAll(Plugin owningPlugin) {
+        Validate.notNull(owningPlugin, "Plugin cannot be null");
+        for (Iterator<Map<Plugin, MetadataValue>> iterator = metadataMap.values().iterator(); iterator.hasNext(); ) {
+            Map<Plugin, MetadataValue> values = iterator.next();
+            if (values.containsKey(owningPlugin)) {
+                values.remove(owningPlugin);
+            }
+            if (values.isEmpty()) {
+                iterator.remove();
+            }
+        }
+    }
+
+    /**
      * Creates a unique name for the object receiving metadata by combining
      * unique data from the subject with a metadataKey.
      * <p>
