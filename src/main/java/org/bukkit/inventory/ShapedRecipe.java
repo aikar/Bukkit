@@ -145,6 +145,13 @@ public class ShapedRecipe implements Recipe, Keyed {
         return this;
     }
 
+    // Paper start
+    @NotNull
+    public ShapedRecipe setIngredient(char key, @NotNull ItemStack item) {
+        return setIngredient(key, new RecipeChoice.ExactChoice(item));
+    }
+    // Paper end
+
     /**
      * Get a copy of the ingredients map.
      *

@@ -143,6 +143,40 @@ public class ShapelessRecipe implements Recipe, Keyed {
         return this;
     }
 
+    // Paper start
+    @NotNull
+    public ShapelessRecipe addIngredient(@NotNull ItemStack item) {
+        return addIngredient(1, item);
+    }
+
+    @NotNull
+    public ShapelessRecipe addIngredient(int count, @NotNull ItemStack item) {
+        Validate.isTrue(ingredients.size() + count <= 9, "Shapeless recipes cannot have more than 9 ingredients");
+        while (count-- > 0) {
+            ingredients.add(new RecipeChoice.ExactChoice(item));
+        }
+        return this;
+    }
+
+    @NotNull
+    public ShapelessRecipe removeIngredient(@NotNull ItemStack item) {
+        return removeIngredient(1, item);
+    }
+
+    @NotNull
+    public ShapelessRecipe removeIngredient(int count, @NotNull ItemStack item) {
+        Iterator<RecipeChoice> iterator = ingredients.iterator();
+        while (count > 0 && iterator.hasNext()) {
+            ItemStack stack = iterator.next().getItemStack();
+            if (stack.equals(item)) {
+                iterator.remove();
+                count--;
+            }
+        }
+        return this;
+    }
+    // Paper end
+
     /**
      * Removes an ingredient from the list.
      *
