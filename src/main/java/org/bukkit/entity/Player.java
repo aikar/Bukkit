@@ -1540,6 +1540,18 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
         {
             throw new UnsupportedOperationException( "Not supported yet." );
         }
+
+        /**
+         * Gets player locale language.
+         *
+         * @return the player's client language settings
+         * @deprecated Use {@link Player#getLocale()}
+         */
+        @Deprecated
+        public String getLocale()
+        {
+            throw new UnsupportedOperationException( "Not supported yet." );
+        }
     }
 
     @Override
