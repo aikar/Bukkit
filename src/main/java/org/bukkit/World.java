@@ -1,6 +1,8 @@
 package org.bukkit;
 
 import java.io.File;
+
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.generator.ChunkGenerator;
 
 import java.util.ArrayList;
@@ -1087,6 +1089,11 @@ public interface World extends PluginMessageRecipient, Metadatable {
      */
     public <T extends Entity> T spawn(Location location, Class<T> clazz) throws IllegalArgumentException;
 
+    // EMC start
+    public default <T extends Entity> T spawn(Location location, Class<T> clazz, CreatureSpawnEvent.SpawnReason reason) throws IllegalArgumentException {
+        return spawn(location, clazz, reason, null);
+    }
+
     /**
      * Spawn an entity of a specific class at the given {@link Location}, with
      * the supplied function run before the entity is added to the world.
@@ -1103,7 +1110,22 @@ public interface World extends PluginMessageRecipient, Metadatable {
      * @throws IllegalArgumentException if either parameter is null or the
      *     {@link Entity} requested cannot be spawned
      */
-    public <T extends Entity> T spawn(Location location, Class<T> clazz, Consumer<T> function) throws IllegalArgumentException;
+    public default <T extends Entity> T spawn(Location location, Class<T> clazz, Consumer<T> function) throws IllegalArgumentException {
+        return spawn(location, clazz, CreatureSpawnEvent.SpawnReason.CUSTOM, function);
+    }
+
+    public default <T extends Entity> T spawn(Location location, Class<T> clazz, CreatureSpawnEvent.SpawnReason reason, Consumer<T> function) throws IllegalArgumentException {
+        return spawn(location, clazz, function, reason);
+    }
+
+    public default Entity spawnEntity(Location loc, EntityType type, CreatureSpawnEvent.SpawnReason reason) {
+        return spawn(loc, (Class<Entity>) type.getEntityClass(), reason, null);
+    }
+    public default Entity spawnEntity(Location loc, EntityType type, CreatureSpawnEvent.SpawnReason reason, Consumer<Entity> function) {
+        return spawn(loc, (Class<Entity>) type.getEntityClass(), reason, function);
+    }
+    public <T extends Entity> T spawn(Location location, Class<T> clazz, Consumer<T> function, CreatureSpawnEvent.SpawnReason reason) throws IllegalArgumentException;
+    // EMC end
 
     /**
      * Spawn a {@link FallingBlock} entity at the given {@link Location} of
