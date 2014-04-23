@@ -22,6 +22,7 @@ import javax.annotation.Nullable;
  */
 public interface LivingEntity extends Attributable, Entity, Damageable, ProjectileSource {
 
+    public org.bukkit.inventory.ItemStack getLoot(); // EMC
     /**
      * Gets the height of the living entity's eyes above its Location.
      *
