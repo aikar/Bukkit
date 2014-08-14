@@ -1869,6 +1869,14 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
     {
 
         /**
+         * Gets the current Fishing Hook a player has out.
+         * @return current fishing hook or null if the player is not fishing
+         */
+        public Fish getFishingHook() {
+            throw new UnsupportedOperationException( "Not supported yet." );
+        }
+
+        /**
          * Gets the connection address of this player, regardless of whether it
          * has been spoofed or not.
          *
