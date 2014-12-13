@@ -1,6 +1,7 @@
 package org.bukkit.entity;
 
 import java.net.InetSocketAddress;
+import java.util.UUID;
 import org.bukkit.DyeColor;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
@@ -1337,6 +1338,58 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
          */
         @NotNull
         public java.util.Set<Player> getHiddenPlayers() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public void sendMessage(@NotNull net.md_5.bungee.api.chat.BaseComponent component) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public void sendMessage(@NotNull net.md_5.bungee.api.chat.BaseComponent... components) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        /**
+         * Sends the component to the specified screen position of this player
+         *
+         * @param position the screen position
+         * @param component the components to send
+         */
+        public void sendMessage(@NotNull net.md_5.bungee.api.ChatMessageType position, @NotNull net.md_5.bungee.api.chat.BaseComponent component) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        /**
+         * Sends an array of components as a single message to the specified screen position of this player
+         *
+         * @param position the screen position
+         * @param components the components to send
+         */
+        public void sendMessage(@NotNull net.md_5.bungee.api.ChatMessageType position, @NotNull net.md_5.bungee.api.chat.BaseComponent... components) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        /**
+         * Sends the component to the specified screen position of this player
+         *
+         * @param position the screen position
+         * @param sender the sender of the message
+         * @param component the components to send
+         */
+        public void sendMessage(@NotNull net.md_5.bungee.api.ChatMessageType position, @Nullable UUID sender, @NotNull net.md_5.bungee.api.chat.BaseComponent component) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        /**
+         * Sends an array of components as a single message to the specified screen position of this player
+         *
+         * @param position the screen position
+         * @param sender the sender of the message
+         * @param components the components to send
+         */
+        public void sendMessage(@NotNull net.md_5.bungee.api.ChatMessageType position, @Nullable UUID sender, @NotNull net.md_5.bungee.api.chat.BaseComponent... components) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
     }
