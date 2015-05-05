@@ -30,6 +30,7 @@ public class PlayerInteractAtEntityEvent extends PlayerInteractEntityEvent {
         return position.clone();
     }
 
+    /* // EMC start
     @Override
     public HandlerList getHandlers() {
         return handlers;
@@ -38,4 +39,5 @@ public class PlayerInteractAtEntityEvent extends PlayerInteractEntityEvent {
     public static HandlerList getHandlerList() {
         return handlers;
     }
+    */ // EMC end
 }
