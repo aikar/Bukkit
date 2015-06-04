@@ -203,7 +203,7 @@ public class SimpleCommandMap implements CommandMap {
 
                 String name = commandEntry.getKey(); // Use the alias, not command name
 
-                if (StringUtil.startsWithIgnoreCase(name, cmdLine)) {
+                if (name.charAt(0) != '_' && StringUtil.startsWithIgnoreCase(name, cmdLine)) { // EMC
                     completions.add(prefix + name);
                 }
             }
