@@ -1063,6 +1063,7 @@ public interface Server extends PluginMessageRecipient {
             throw new UnsupportedOperationException( "Not supported yet." );
         }
 
+        public int getTick(){return 0; } // EMC
         public org.bukkit.configuration.file.YamlConfiguration getBukkitConfig()
         {
             throw new UnsupportedOperationException( "Not supported yet." );
