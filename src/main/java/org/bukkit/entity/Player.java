@@ -49,6 +49,9 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
      */
     public String getDisplayName();
 
+    public long getUserId(); public void setUserId(long userId); // EMC
+    public <T> T getUser(); public void setUser(Object object); // EMC
+
     /**
      * Sets the "friendly" name to display of this player. This may include
      * color.
