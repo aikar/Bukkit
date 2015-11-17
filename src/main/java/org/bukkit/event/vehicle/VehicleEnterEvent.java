@@ -13,7 +13,7 @@ public class VehicleEnterEvent extends VehicleEvent implements Cancellable {
     private boolean cancelled;
     private final Entity entered;
 
-    public VehicleEnterEvent(final Vehicle vehicle, final Entity entered) {
+    public VehicleEnterEvent(final Entity vehicle, final Entity entered) { // EMC
         super(vehicle);
         this.entered = entered;
     }

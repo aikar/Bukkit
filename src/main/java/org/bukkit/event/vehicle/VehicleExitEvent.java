@@ -1,5 +1,6 @@
 package org.bukkit.event.vehicle;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Vehicle;
 import org.bukkit.event.Cancellable;
@@ -23,7 +24,7 @@ public class VehicleExitEvent extends VehicleEvent implements Cancellable {
     private boolean cancelled;
     private final LivingEntity exited;
 
-    public VehicleExitEvent(final Vehicle vehicle, final LivingEntity exited) {
+    public VehicleExitEvent(final Entity vehicle, final LivingEntity exited) { // EMC
         super(vehicle);
         this.exited = exited;
     }
