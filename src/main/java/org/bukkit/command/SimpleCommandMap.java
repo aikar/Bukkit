@@ -136,7 +136,7 @@ public class SimpleCommandMap implements CommandMap {
         Command target = getCommand(sentCommandLabel);
 
         if (target == null) {
-            return false;
+            return !(new com.empireminecraft.customevents.UnknownCommandEvent(sender, sentCommandLabel, commandLine).callEvent()); // EMC
         }
 
         // Paper start - Plugins do weird things to workaround normal registration
