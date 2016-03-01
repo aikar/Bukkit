@@ -1008,10 +1008,25 @@ public interface Server extends PluginMessageRecipient {
     // Spigot start
     public class Spigot
     {
-
+        @Deprecated
         public org.bukkit.configuration.file.YamlConfiguration getConfig()
         {
             throw new UnsupportedOperationException( "Not supported yet." );
+        }
+
+        public org.bukkit.configuration.file.YamlConfiguration getBukkitConfig()
+        {
+            throw new UnsupportedOperationException( "Not supported yet." );
+        }
+
+        public org.bukkit.configuration.file.YamlConfiguration getSpigotConfig()
+        {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        public org.bukkit.configuration.file.YamlConfiguration getPaperConfig()
+        {
+            throw new UnsupportedOperationException("Not supported yet.");
         }
 
         /**
