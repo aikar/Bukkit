@@ -19,10 +19,7 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarFlag;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
-import org.bukkit.command.CommandException;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.command.PluginCommand;
+import org.bukkit.command.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
@@ -1273,6 +1270,17 @@ public final class Bukkit {
     public static UnsafeValues getUnsafe() {
         return server.getUnsafe();
     }
+
+    // Paper start
+    /**
+     * Gets the active {@link CommandMap}
+     *
+     * @return the active command map
+     */
+    public static CommandMap getCommandMap() {
+        return server.getCommandMap();
+    }
+    // Paper end
 
     public static Server.Spigot spigot()
     {
