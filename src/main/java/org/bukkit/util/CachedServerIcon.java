@@ -12,4 +12,6 @@ import org.bukkit.event.server.ServerListPingEvent;
  * @see Server#loadServerIcon(java.io.File)
  * @see ServerListPingEvent#setServerIcon(CachedServerIcon)
  */
-public interface CachedServerIcon {}
+public interface CachedServerIcon {
+    public String getData(); // Spigot
+}
