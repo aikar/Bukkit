@@ -281,6 +281,26 @@ public final class Bukkit {
         return server.broadcastMessage(message);
     }
 
+    // Paper start
+    /**
+     * Sends the component to all online players.
+     *
+     * @param component the component to send
+     */
+    public static void broadcast(net.md_5.bungee.api.chat.BaseComponent component) {
+        server.broadcast(component);
+    }
+
+    /**
+     * Sends an array of components as a single message to all online players.
+     *
+     * @param components the components to send
+     */
+    public static void broadcast(net.md_5.bungee.api.chat.BaseComponent... components) {
+        server.broadcast(components);
+    }
+    // Paper end
+
     /**
      * Gets the name of the update folder. The update folder is used to safely
      * update plugins at the right moment on a plugin load.
