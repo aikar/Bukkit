@@ -300,21 +300,7 @@ public final class JavaPluginLoader implements PluginLoader {
                 }
             }
 
-            EventExecutor executor = new co.aikar.timings.TimedEventExecutor(new EventExecutor() { // Paper
-                @Override
-                public void execute(@NotNull Listener listener, @NotNull Event event) throws EventException { // Paper
-                    try {
-                        if (!eventClass.isAssignableFrom(event.getClass())) {
-                            return;
-                        }
-                        method.invoke(listener, event);
-                    } catch (InvocationTargetException ex) {
-                        throw new EventException(ex.getCause());
-                    } catch (Throwable t) {
-                        throw new EventException(t);
-                    }
-                }
-            }, plugin, method, eventClass); // Paper
+            EventExecutor executor = new co.aikar.timings.TimedEventExecutor(EventExecutor.create(method, eventClass), plugin, method, eventClass); // Paper // Paper (Yes.) - Use factory method `EventExecutor.create()`
             if (false) { // Spigot - RL handles useTimings check now
                 eventSet.add(new TimedRegisteredListener(listener, executor, eh.priority(), plugin, eh.ignoreCancelled()));
             } else {
