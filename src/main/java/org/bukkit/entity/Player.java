@@ -399,6 +399,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
      *
      * @param component the components to send
      */
+    @Override
     public default void sendMessage(net.md_5.bungee.api.chat.BaseComponent component) {
         spigot().sendMessage(component);
     }
@@ -408,6 +409,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
      *
      * @param components the components to send
      */
+    @Override
     public default void sendMessage(net.md_5.bungee.api.chat.BaseComponent... components) {
         spigot().sendMessage(components);
     }
