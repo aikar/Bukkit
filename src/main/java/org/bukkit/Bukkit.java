@@ -1263,6 +1263,13 @@ public final class Bukkit {
     public static CommandMap getCommandMap() {
         return server.getCommandMap();
     }
+
+    /**
+     * Reload the Permissions in permissions.yml
+     */
+    public static void reloadPermissions() {
+        server.reloadPermissions();
+    }
     // Paper end
 
     public static Server.Spigot spigot()
