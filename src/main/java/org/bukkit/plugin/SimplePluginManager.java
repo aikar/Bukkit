@@ -894,4 +894,13 @@ public final class SimplePluginManager implements PluginManager {
     public void useTimings(boolean use) {
         co.aikar.timings.Timings.setTimingsEnabled(use); // Paper
     }
+
+    // Paper start
+    public void clearPermissions() {
+        permissions.clear();
+        defaultPerms.get(true).clear();
+        defaultPerms.get(false).clear();
+    }
+    // Paper end
+
 }
