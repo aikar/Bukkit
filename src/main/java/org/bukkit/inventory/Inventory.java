@@ -120,19 +120,23 @@ public interface Inventory extends Iterable<ItemStack> {
     /**
      * Returns all ItemStacks from the inventory
      *
+     * @deprecated because people love breaking API's for no reason. you probally want @{see {@link #getStorageContents()}}
      * @return An array of ItemStacks from the inventory.
      */
+    @Deprecated
     public ItemStack[] getContents();
 
     /**
      * Completely replaces the inventory's contents. Removes all existing
      * contents and replaces it with the ItemStacks given in the array.
      *
+      @deprecated because people love breaking API's for no reason. you probally want @{see {@link #setStorageContents(ItemStack[])}}
      * @param items A complete replacement for the contents; the length must
      *     be less than or equal to {@link #getSize()}.
      * @throws IllegalArgumentException If the array has more items than the
      *     inventory.
      */
+    @Deprecated
     public void setContents(ItemStack[] items) throws IllegalArgumentException;
 
     /**
