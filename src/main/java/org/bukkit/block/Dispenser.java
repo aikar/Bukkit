@@ -1,12 +1,13 @@
 package org.bukkit.block;
 
 import org.bukkit.Nameable;
+import com.destroystokyo.paper.loottable.LootableInventory; // Paper
 import org.bukkit.projectiles.BlockProjectileSource;
 
 /**
  * Represents a captured state of a dispenser.
  */
-public interface Dispenser extends Container, Nameable {
+public interface Dispenser extends Container, Nameable, LootableInventory { // Paper
 
     /**
      * Gets the BlockProjectileSource object for the dispenser.
