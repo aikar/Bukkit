@@ -479,7 +479,7 @@ public class ItemStack implements Cloneable, ConfigurationSerializable {
             result.setDurability(damage);
         }
 
-        return result;
+        return result.ensureServerConversions(); // Paper
     }
 
     /**
@@ -537,4 +537,18 @@ public class ItemStack implements Cloneable, ConfigurationSerializable {
 
         return true;
     }
+
+    // Paper start
+    /**
+     * Minecart updates are converting simple item stacks into more complex NBT oriented Item Stacks.
+     *
+     * Use this method to to ensure any desired data conversions are processed.
+     * The input itemstack will not be the same as the returned itemstack.
+     *
+     * @return A potentially Data Converted ItemStack
+     */
+    public ItemStack ensureServerConversions() {
+        return Bukkit.getServer().getItemFactory().ensureServerConversions(this);
+    }
+    // Paper end
 }
