@@ -153,5 +153,16 @@ public interface ItemFactory {
      */
     @NotNull
     ItemStack ensureServerConversions(@NotNull ItemStack item);
+
+    /**
+     * Gets the Display name as seen in the Client.
+     * Currently the server only supports the English language. To override this,
+     * You must replace the language file embedded in the server jar.
+     *
+     * @param item Item to return Display name of
+     * @return Display name of Item
+     */
+    @Nullable
+    String getI18NDisplayName(@Nullable ItemStack item);
     // Paper end
 }
