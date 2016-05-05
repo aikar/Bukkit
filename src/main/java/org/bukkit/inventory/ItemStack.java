@@ -550,5 +550,16 @@ public class ItemStack implements Cloneable, ConfigurationSerializable {
     public ItemStack ensureServerConversions() {
         return Bukkit.getServer().getItemFactory().ensureServerConversions(this);
     }
+
+    /**
+     * Gets the Display name as seen in the Client.
+     * Currently the server only supports the English language. To override this,
+     * You must replace the language file embedded in the server jar.
+     *
+     * @return Display name of Item
+     */
+    public String getI18NDisplayName() {
+        return Bukkit.getServer().getItemFactory().getI18NDisplayName(this);
+    }
     // Paper end
 }
