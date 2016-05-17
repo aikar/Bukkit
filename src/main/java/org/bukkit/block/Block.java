@@ -384,4 +384,5 @@ public interface Block extends Metadatable {
      */
     Collection<ItemStack> getDrops(ItemStack tool);
 
+    com.empireminecraft.Identifier getIdentifier(); // EMC
 }

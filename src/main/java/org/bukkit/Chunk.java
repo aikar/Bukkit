@@ -8,6 +8,7 @@ import org.bukkit.entity.Entity;
  * Represents a chunk of blocks
  */
 public interface Chunk {
+    com.empireminecraft.Identifier getIdentifier(); // EMC
 
     /**
      * Gets the X-coordinate of this chunk
