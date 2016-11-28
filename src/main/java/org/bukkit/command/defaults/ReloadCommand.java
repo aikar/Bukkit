@@ -13,7 +13,7 @@ public class ReloadCommand extends BukkitCommand {
     public ReloadCommand(String name) {
         super(name);
         this.description = "Reloads the server configuration and plugins";
-        this.usageMessage = "/reload [permissions]"; // Paper
+        this.usageMessage = "/reload [permissions|commands|confirm]"; // Paper
         this.setPermission("bukkit.command.reload");
         this.setAliases(Arrays.asList("rl"));
     }
@@ -29,6 +29,13 @@ public class ReloadCommand extends BukkitCommand {
             if (args[0].equalsIgnoreCase("permissions")) {
                 Bukkit.getServer().reloadPermissions();
                 Command.broadcastCommandMessage(sender, ChatColor.GREEN + "Permissions successfully reloaded.");
+                return true;
+            } else if ("commands".equalsIgnoreCase(args[0])) {
+                if (Bukkit.getServer().reloadCommandAliases()) {
+                    Command.broadcastCommandMessage(sender, ChatColor.GREEN + "Command aliases successfully reloaded.");
+                } else {
+                    Command.broadcastCommandMessage(sender, ChatColor.RED + "An error occurred while trying to reload command aliases.");
+                }
                 return true;
             } else if ("confirm".equalsIgnoreCase(args[0])) {
                 confirmed = true;
