@@ -1142,6 +1142,27 @@ public final class Bukkit {
     }
 
     /**
+     * Creates an Identifier object using the default minecraft: group
+     *
+     * @param name The identifier name
+     * @return A new identifier
+     */
+    public static Identifier createIdentifier(String name) {
+        return server.createIdentifier(name);
+    }
+
+    /**
+     * Creates an Identifier Object using supplied group and name.
+     *
+     * @param group The group name
+     * @param name The identifier name
+     * @return A new identifier
+     */
+    public static Identifier createIdentifier(String group, String name) {
+        return server.createIdentifier(group, name);
+    }
+
+    /**
      * @see UnsafeValues
      * @return the unsafe values instance
      */

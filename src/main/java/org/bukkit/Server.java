@@ -936,6 +936,23 @@ public interface Server extends PluginMessageRecipient {
     BossBar createBossBar(String title, BarColor color, BarStyle style, BarFlag ...flags);
 
     /**
+     * Creates an Identifier object using the default minecraft: group
+     *
+     * @param name The identifier name
+     * @return A new identifier
+     */
+    public Identifier createIdentifier(String name);
+
+    /**
+     * Creates an Identifier Object using supplied group and name.
+     *
+     * @param group The group name
+     * @param name The identifier name
+     * @return A new identifier
+     */
+    public Identifier createIdentifier(String group, String name);
+
+    /**
      * @see UnsafeValues
      * @return the unsafe values instance
      */

@@ -41,7 +41,7 @@ public class MaterialTest {
 
     @Test
     public void getByNameNull() {
-        assertThat(Material.getMaterial(null), is(nullValue()));
+        assertThat(Material.getMaterial((String) null), is(nullValue()));
     }
 
     @Test

@@ -704,6 +704,16 @@ public enum Material {
     }
 
     /**
+     * Attempts to get the Material with the given Identifier
+     *
+     * @param identifier
+     * @return Material if found, or null
+     */
+    public static Material getMaterial(Identifier identifier) {
+        return Bukkit.getUnsafe().getMaterialFromIdentifier(identifier);
+    }
+
+    /**
      * Attempts to match the Material with the given name.
      * <p>
      * This is a match lookup; names will be converted to uppercase, then

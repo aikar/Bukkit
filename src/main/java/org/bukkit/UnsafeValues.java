@@ -19,6 +19,8 @@ import org.bukkit.inventory.ItemStack;
 @Deprecated
 public interface UnsafeValues {
 
+    Material getMaterialFromIdentifier(Identifier identifier);
+
     Material getMaterialFromInternalName(String name);
 
     List<String> tabCompleteInternalMaterialName(String token, List<String> completions);
