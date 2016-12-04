@@ -23,5 +23,26 @@
 
 package com.empireminecraft.api;
 
+import org.bukkit.NamespacedKey;
+import org.bukkit.entity.EntityType;
+import org.bukkit.inventory.ItemStack;
+
+import javax.annotation.Nonnull;
+
 public interface EAPI_Misc {
+
+    /**
+     * Gets Registered Entity Type for this spawn egg.
+     * @param bukkitItem
+     * @return
+     */
+    EntityType getTypeForSpawnEgg(@Nonnull ItemStack bukkitItem);
+
+    /**
+     * Changes the type of a Spawn Egg and returns new itemstack. ALWAYS USE THE RETURNED STACK
+     * @param bukkitItem
+     * @param key
+     * @return
+     */
+    ItemStack spawnEggAsType(@Nonnull ItemStack bukkitItem, @Nonnull NamespacedKey key);
 }

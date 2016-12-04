@@ -13,6 +13,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -22,11 +23,17 @@ public class MonsterEggPrepareSpawnEvent extends Event implements Cancellable {
     private final HumanEntity player;
     private NamespacedKey typeKey;
     private final ItemStack item;
+    private final SpawnReason spawnReason;
 
-    public MonsterEggPrepareSpawnEvent(HumanEntity player, NamespacedKey typeKey, ItemStack item) {
+    public MonsterEggPrepareSpawnEvent(HumanEntity player, NamespacedKey typeKey, ItemStack item, SpawnReason spawnReason) {
         this.player = player;
         this.typeKey = typeKey;
         this.item = item;
+        this.spawnReason = spawnReason;
+    }
+
+    @Nonnull public SpawnReason getSpawnReason() {
+        return spawnReason;
     }
 
     @Nullable public HumanEntity getPlayer() {
