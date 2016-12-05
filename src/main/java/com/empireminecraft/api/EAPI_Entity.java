@@ -23,6 +23,7 @@
 
 package com.empireminecraft.api;
 
+import com.empireminecraft.api.EntityTask.TaskHandler;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 
@@ -30,4 +31,62 @@ public interface EAPI_Entity {
 
     byte[] serializeEntity(Entity craftentity);
     Entity deserializeEntity(byte[] data, World world);
+
+    void cancelTasks(Entity entity);
+
+    default <T extends Entity> EntityTask<T> scheduleTask(T entity, int interval, Runnable task) {
+        return scheduleTask(entity, interval, new EntityTask<T>() {
+            @Override
+            public void run(T entity) {
+                task.run();
+            }
+        });
+    }
+
+    default <T extends Entity> EntityTask<T> scheduleDelayedTask(T entity, int delay, Runnable task) {
+        return scheduleTask(entity, delay, new EntityTask<T>(1) {
+            @Override
+            public void run(T entity) {
+                task.run();
+            }
+        });
+    }
+
+    default <T extends Entity> EntityTask<T> scheduleDelayedTask(T entity, int delay, TaskHandler<T> task) {
+        return scheduleTask(entity, delay, new EntityTask<T>(1) {
+            @Override
+            public void run(T entity) {
+                task.run(entity, this);
+            }
+        });
+    }
+
+    default <T extends Entity> EntityTask<T> scheduleTask(T entity, int interval, TaskHandler<T> task) {
+        return scheduleTask(entity, interval, new EntityTask<T>() {
+            @Override
+            public void run(T entity) {
+                task.run(entity, this);
+            }
+        });
+    }
+
+    default <T extends Entity> EntityTask<T> scheduleTask(T entity, int interval, int limit, TaskHandler<T> task) {
+        return scheduleTask(entity, interval, new EntityTask<T>(limit) {
+            @Override
+            public void run(T entity) {
+                task.run(entity, this);
+            }
+        });
+    }
+
+    default <T extends Entity> EntityTask<T> scheduleTask(T entity, int interval, int limit, Runnable task) {
+        return scheduleTask(entity, interval, new EntityTask<T>(limit) {
+            @Override
+            public void run(T entity) {
+                task.run();
+            }
+        });
+    }
+
+    <T extends Entity> EntityTask<T> scheduleTask(T entity, int interval, EntityTask<T> task);
 }

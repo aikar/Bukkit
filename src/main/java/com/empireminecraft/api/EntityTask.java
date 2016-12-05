@@ -1,0 +1,106 @@
+/*
+ * Copyright (c) 2016 Starlis LLC / Daniel Ennis (Aikar) - MIT License
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining
+ *  a copy of this software and associated documentation files (the
+ *  "Software"), to deal in the Software without restriction, including
+ *  without limitation the rights to use, copy, modify, merge, publish,
+ *  distribute, sublicense, and/or sell copies of the Software, and to
+ *  permit persons to whom the Software is furnished to do so, subject to
+ *  the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be
+ *  included in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ *  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ *  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ *  LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ *  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ *  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package com.empireminecraft.api;
+
+import org.bukkit.entity.Entity;
+
+public abstract class EntityTask<T extends Entity> {
+    private int limit = -1;
+    private int count = 0;
+    private int nextTick = -1;
+    private int tickEvery = -1;
+    private T entity;
+
+    public EntityTask() {}
+    public EntityTask(int limit) {
+        this.limit = limit;
+    }
+
+    public void init(T entity, int interval) {
+        if (this.entity != null) {
+            throw new IllegalStateException("Already initialized");
+        }
+        this.entity = entity;
+        nextTick = entity.getTicksLived() + interval;
+        tickEvery = interval;
+    }
+
+    public abstract void run(T entity);
+
+    public EntityTask<T> invokeNow() {
+        run(entity);
+        return this;
+    }
+
+    public boolean tick() {
+        if (isReady()) {
+            invokeNow();
+            this.count++;
+            this.nextTick = this.entity.getTicksLived() + this.tickEvery;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isValid() {
+        return entity != null && (limit == -1 || count < limit);
+    }
+
+    public boolean isReady() {
+        return entity != null && entity.getTicksLived() == nextTick;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public int getNextTick() {
+        return nextTick;
+    }
+
+    public int getTickEvery() {
+        return tickEvery;
+    }
+
+    public void setTickEvery(int ticks) {
+        this.tickEvery = ticks;
+    }
+
+    public T getEntity() {
+        return entity;
+    }
+
+    public void abort() {
+        this.limit = 1;
+        this.count = 1;
+    }
+
+    public interface TaskHandler<T extends Entity> {
+        void run(T entity, EntityTask<T> task);
+    }
+}
