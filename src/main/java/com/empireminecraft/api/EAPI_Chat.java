@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016 Starlis LLC / Daniel Ennis (Aikar) - MIT License
- *
+ *  
  *  Permission is hereby granted, free of charge, to any person obtaining
  *  a copy of this software and associated documentation files (the
  *  "Software"), to deal in the Software without restriction, including
@@ -8,10 +8,10 @@
  *  distribute, sublicense, and/or sell copies of the Software, and to
  *  permit persons to whom the Software is furnished to do so, subject to
  *  the following conditions:
- *
+ *  
  *  The above copyright notice and this permission notice shall be
  *  included in all copies or substantial portions of the Software.
- *
+ *  
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  *  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -23,33 +23,35 @@
 
 package com.empireminecraft.api;
 
-import com.empireminecraft.api.meta.EAPI_Meta;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
-public abstract class API {
 
-    public static EAPI_Entity entity;
-    public static EAPI_Misc misc;
-    public static EAPI_Meta meta;
-    public static EAPI_Chat chat;
+public interface EAPI_Chat {
 
-    public static String stack() {
-        return ExceptionUtils.getFullStackTrace(new Throwable());
-    }
+    FancifulChat createFancy();
 
-    public static void exception(Throwable e) {
-        exception(null, e);
-    }
+    void sendTitle(Player player, FancifulChat title, FancifulChat subtitle, Integer fadeIn, Integer stay, Integer fadeOut);
 
-    public static void exception(String msg, Throwable e) {
-        if (msg != null) {
-            System.err.println(msg);
-        }
-        if (e.getMessage() != null) {
-            System.err.println(e.getMessage());
-        }
-        for (String line : ExceptionUtils.getFullStackTrace(e).split("\n")) {
-            System.err.println(line);
-        }
+    interface FancifulChat {
+        FancifulChat file(final String path);
+
+        FancifulChat link(final String url);
+
+        FancifulChat suggest(final String command);
+
+        FancifulChat command(final String command);
+
+        FancifulChat achievementTooltip(final String name);
+
+        FancifulChat itemTooltip(final String itemJSON);
+
+        FancifulChat itemTooltip(final ItemStack itemStack);
+
+        FancifulChat tooltip(final String text);
+
+        FancifulChat then(final Object obj);
+
+        void send(Player player);
     }
 }
