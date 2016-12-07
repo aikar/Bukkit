@@ -21,37 +21,30 @@
  *  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.empireminecraft.api;
+package com.empireminecraft.api.attributes;
 
-import com.empireminecraft.api.attributes.EAPI_Attributes;
-import com.empireminecraft.api.meta.EAPI_Meta;
-import org.apache.commons.lang.exception.ExceptionUtils;
+// part of this copied from https://bukkit.org/threads/util-edit-itemstack-attributes-adding-speed-damage-or-health-bonuses.158316/
+public enum Operation {
+    ADD_NUMBER(0),
+    MULTIPLY_PERCENTAGE(1),
+    ADD_PERCENTAGE(2);
+    private final int id;
 
-public abstract class API {
-
-    public static EAPI_Entity entity;
-    public static EAPI_Misc misc;
-    public static EAPI_Meta meta;
-    public static EAPI_Chat chat;
-    public static EAPI_Attributes attributes;
-
-    public static String stack() {
-        return ExceptionUtils.getFullStackTrace(new Throwable());
+    Operation(int id) {
+        this.id = id;
     }
 
-    public static void exception(Throwable e) {
-        exception(null, e);
+    public int getId() {
+        return id;
     }
 
-    public static void exception(String msg, Throwable e) {
-        if (msg != null) {
-            System.err.println(msg);
+    public static Operation fromId(int id) {
+        // Linear scan is very fast for small N
+        for (Operation op : values()) {
+            if (op.getId() == id) {
+                return op;
+            }
         }
-        if (e.getMessage() != null) {
-            System.err.println(e.getMessage());
-        }
-        for (String line : ExceptionUtils.getFullStackTrace(e).split("\n")) {
-            System.err.println(line);
-        }
+        throw new IllegalArgumentException("Corrupt operation ID " + id + " detected.");
     }
 }
