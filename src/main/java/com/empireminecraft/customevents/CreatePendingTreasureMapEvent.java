@@ -21,47 +21,45 @@
  *  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.empireminecraft.api;
+package com.empireminecraft.customevents;
 
-import org.bukkit.NamespacedKey;
-import org.bukkit.Location;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
 
-import javax.annotation.Nonnull;
+public class CreatePendingTreasureMapEvent extends Event {
+    private final String mapType;
+    private final int iconTypeId;
+    private ItemStack item;
 
-public interface EAPI_Misc {
+    public CreatePendingTreasureMapEvent(String mapType, int iconTypeId) {
+        this.mapType = mapType;
+        this.iconTypeId = iconTypeId;
+    }
 
-    /**
-     * Gets Registered Entity Type for this spawn egg.
-     * @param bukkitItem
-     * @return
-     */
-    EntityType getTypeForSpawnEgg(@Nonnull ItemStack bukkitItem);
+    public String getMapType() {
+        return mapType;
+    }
 
-    /**
-     * Changes the type of a Spawn Egg and returns new itemstack. ALWAYS USE THE RETURNED STACK
-     * @param bukkitItem
-     * @param key
-     * @return
-     */
-    ItemStack spawnEggAsType(@Nonnull ItemStack bukkitItem, @Nonnull NamespacedKey key);
+    public int getIconTypeId() {
+        return iconTypeId;
+    }
 
-    /**
-     *
-     * @param structure
-     * @param center
-     * @param undiscoveredOnly
-     * @return
-     */
-    Location findNearestStructure(@Nonnull String structure, @Nonnull Location center, boolean undiscoveredOnly);
+    public ItemStack getItem() {
+        return item;
+    }
 
-    /**
-     *
-     * @param mapType
-     * @param loc
-     * @return
-     */
-    ItemStack createTreasureMap(@Nonnull String mapType, int iconType, @Nonnull Location loc);
+    public void setItem(ItemStack item) {
+        this.item = item;
+    }
+
+    private static final HandlerList handlers = new HandlerList();
+
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }
