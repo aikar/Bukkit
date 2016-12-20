@@ -484,6 +484,33 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
     public void sendMap(@NotNull MapView map);
 
     // Paper start
+
+    /**
+     * Sends an Action Bar message to the client.
+     *
+     * Use Section symbols for legacy color codes to send formatting.
+     *
+     * @param message The message to send
+     */
+    public void sendActionBar(@NotNull String message);
+
+    /**
+     * Sends an Action Bar message to the client.
+     *
+     * Use supplied alternative character to the section symbol to represent legacy color codes.
+     *
+     * @param alternateChar Alternate symbol such as '&'
+     * @param message The message to send
+     */
+    public void sendActionBar(char alternateChar, @NotNull String message);
+
+    /**
+     * Sends an Action Bar message to the client.
+     *
+     * @param message The components to send
+     */
+    public void sendActionBar(@NotNull net.md_5.bungee.api.chat.BaseComponent... message);
+
     /**
      * Sends the component to the player
      *
@@ -507,9 +534,11 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
     /**
      * Sends an array of components as a single message to the specified screen position of this player
      *
+     * @deprecated This is unlikely the API you want to use. See {@link #sendActionBar(String)} for a more proper Action Bar API. This deprecated API may send unsafe items to the client.
      * @param position the screen position
      * @param components the components to send
      */
+    @Deprecated
     public default void sendMessage(net.md_5.bungee.api.ChatMessageType position, net.md_5.bungee.api.chat.BaseComponent... components) {
         spigot().sendMessage(position, components);
     }
@@ -1593,9 +1622,11 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
         /**
          * Sends the component to the specified screen position of this player
          *
+         * @deprecated This is unlikely the API you want to use. See {@link #sendActionBar(String)} for a more proper Action Bar API. This deprecated API may send unsafe items to the client.
          * @param position the screen position
          * @param component the components to send
          */
+        @Deprecated
         public void sendMessage(@NotNull net.md_5.bungee.api.ChatMessageType position, @NotNull net.md_5.bungee.api.chat.BaseComponent component) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
@@ -1603,9 +1634,11 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
         /**
          * Sends an array of components as a single message to the specified screen position of this player
          *
+         * @deprecated This is unlikely the API you want to use. See {@link #sendActionBar(String)} for a more proper Action Bar API. This deprecated API may send unsafe items to the client.
          * @param position the screen position
          * @param components the components to send
          */
+        @Deprecated
         public void sendMessage(@NotNull net.md_5.bungee.api.ChatMessageType position, @NotNull net.md_5.bungee.api.chat.BaseComponent... components) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
