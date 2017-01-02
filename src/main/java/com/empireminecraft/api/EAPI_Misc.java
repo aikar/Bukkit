@@ -30,6 +30,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
 
 public interface EAPI_Misc {
 
@@ -64,4 +66,20 @@ public interface EAPI_Misc {
      * @return
      */
     ItemStack createTreasureMap(@Nonnull String mapType, int iconType, @Nonnull Location loc);
+
+
+    /**
+     * Returns if this is a shulker box with items in it.
+     * @param shulker
+     * @return Has items or not
+     */
+    boolean hasShulkerInventory(@Nonnull ItemStack shulker);
+
+    /**
+     * Returns a list of items inside of a Shulker Box Item Stack
+     * @param shulker
+     * @return List of Items, Not Mutable
+     */
+    @Nullable
+    List<ItemStack> getShulkerInventory(@Nonnull ItemStack shulker);
 }
