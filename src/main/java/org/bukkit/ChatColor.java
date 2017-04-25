@@ -240,6 +240,15 @@ public enum ChatColor{
     };
 
     /**
+     * Gets the numeric ID associated with this color
+     *
+     * @return An int value of this color code
+     */
+    public int getId() {
+        return intCode;
+    }
+
+    /**
      * Gets the char value associated with this color
      *
      * @return A char value of this color code
@@ -269,6 +278,17 @@ public enum ChatColor{
      */
     public boolean isColor() {
         return !isFormat && this != RESET;
+    }
+
+    /**
+     * Gets the color represented by the specified color ID
+     *
+     * @param id Code to check
+     * @return Associative {@link org.bukkit.ChatColor} with the given id,
+     *     or null if it doesn't exist
+     */
+    public static ChatColor getById(int id) {
+        return BY_ID.get(id);
     }
 
     /**
