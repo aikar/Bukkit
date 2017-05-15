@@ -508,4 +508,14 @@ public interface Entity extends Metadatable, CommandSender, Nameable {
      * @return reaction
      */
     PistonMoveReaction getPistonMoveReaction();
+
+    // Spigot start
+    public class Spigot extends CommandSender.Spigot
+    {
+
+    }
+
+    @Override
+    Spigot spigot();
+    // Spigot end
 }

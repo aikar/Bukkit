@@ -1051,4 +1051,13 @@ public interface Server extends PluginMessageRecipient {
      */
     @Deprecated
     UnsafeValues getUnsafe();
+
+    // Spigot start
+    public class Spigot
+    {
+
+    }
+
+    Spigot spigot();
+    // Spigot end
 }

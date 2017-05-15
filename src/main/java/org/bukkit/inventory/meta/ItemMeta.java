@@ -196,4 +196,13 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable {
 
     @SuppressWarnings("javadoc")
     ItemMeta clone();
+
+    // Spigot start
+    public class Spigot
+    {
+
+    }
+
+    Spigot spigot();
+    // Spigot end
 }

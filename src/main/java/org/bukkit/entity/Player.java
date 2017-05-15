@@ -1492,4 +1492,14 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
      * after permission changes are done.
      */
     public void updateCommands();
+
+    // Spigot start
+    public class Spigot extends Entity.Spigot
+    {
+
+    }
+
+    @Override
+    Spigot spigot();
+    // Spigot end
 }

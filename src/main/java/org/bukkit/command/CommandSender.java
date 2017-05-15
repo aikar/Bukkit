@@ -32,4 +32,13 @@ public interface CommandSender extends Permissible {
      * @return Name of the sender
      */
     public String getName();
+
+    // Spigot start
+    public class Spigot
+    {
+
+    }
+
+    Spigot spigot();
+    // Spigot end
 }

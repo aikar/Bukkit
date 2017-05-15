@@ -12,4 +12,13 @@ public interface LightningStrike extends Weather {
      */
     public boolean isEffect();
 
+    // Spigot start
+    public class Spigot extends Entity.Spigot
+    {
+
+    }
+
+    @Override
+    Spigot spigot();
+    // Spigot end
 }
