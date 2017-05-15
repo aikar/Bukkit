@@ -1439,6 +1439,14 @@ public interface World extends PluginMessageRecipient, Metadatable {
      */
     public <T> void spawnParticle(Particle particle, double x, double y, double z, int count, double offsetX, double offsetY, double offsetZ, double extra, T data);
 
+    // Spigot start
+    public class Spigot
+    {
+
+    }
+
+    Spigot spigot();
+    // Spigot end
 
     /**
      * Represents various map environment types that a world may be

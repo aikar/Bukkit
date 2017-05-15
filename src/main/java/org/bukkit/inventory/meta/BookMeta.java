@@ -173,4 +173,13 @@ public interface BookMeta extends ItemMeta {
     int getPageCount();
 
     BookMeta clone();
+
+    // Spigot start
+    public class Spigot extends ItemMeta.Spigot {
+
+    }
+
+    @Override
+    Spigot spigot();
+    // Spigot end
 }

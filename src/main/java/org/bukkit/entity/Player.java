@@ -1437,4 +1437,14 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
      * @return the player's locale
      */
     public String getLocale();
+
+    // Spigot start
+    public class Spigot extends Entity.Spigot
+    {
+
+    }
+
+    @Override
+    Spigot spigot();
+    // Spigot end
 }
