@@ -1133,4 +1133,14 @@ public interface Server extends PluginMessageRecipient {
     void reloadPermissions(); // Paper
 
     boolean reloadCommandAliases(); // Paper
+
+    // Paper start - allow preventing player name suggestions by default
+    /**
+     * Checks if player names should be suggested when a command returns {@code null} as
+     * their tab completion result.
+     *
+     * @return true if player names should be suggested
+     */
+    boolean suggestPlayerNamesWhenNullTabCompletions();
+    // Paper end
 }
