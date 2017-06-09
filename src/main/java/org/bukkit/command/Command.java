@@ -99,7 +99,7 @@ public abstract class Command {
         Validate.notNull(args, "Arguments cannot be null");
         Validate.notNull(alias, "Alias cannot be null");
 
-        if (args.length == 0) {
+        if (args.length == 0 || !sender.getServer().suggestPlayerNamesWhenNullTabCompletions()) { // Paper - allow preventing player name suggestions by default) {
             return ImmutableList.of();
         }
 
