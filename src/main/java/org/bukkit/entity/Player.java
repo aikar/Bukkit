@@ -409,7 +409,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
      *
      * Use supplied alternative character to the section symbol to represent legacy color codes.
      *
-     * @param alternateChar Alternate symbol such as '&'
+     * @param alternateChar Alternate symbol such as '&amp;'
      * @param message The message to send
      */
     public void sendActionBar(char alternateChar, String message);
@@ -476,6 +476,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
     /**
      * Update the subtitle of titles displayed to the player
      *
+     * @param subtitle Subtitle to set
      * @deprecated Use {@link #updateTitle(Title)}
      */
     @Deprecated
@@ -484,6 +485,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
     /**
      * Update the subtitle of titles displayed to the player
      *
+     * @param subtitle Subtitle to set
      * @deprecated Use {@link #updateTitle(Title)}
      */
     @Deprecated
@@ -492,6 +494,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
     /**
      * Show the given title to the player, along with the last subtitle set, using the last set times
      *
+     * @param title Title to set
      * @deprecated Use {@link #sendTitle(Title)} or {@link #updateTitle(Title)}
      */
     @Deprecated
@@ -500,6 +503,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
     /**
      * Show the given title to the player, along with the last subtitle set, using the last set times
      *
+     * @param title Title to set
      * @deprecated Use {@link #sendTitle(Title)} or {@link #updateTitle(Title)}
      */
     @Deprecated
@@ -1420,6 +1424,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
      * @param count the number of particles
      * @param data the data to use for the particle or null,
      *             the type of this depends on {@link Particle#getDataType()}
+     * @param <T> Type
      */
     public <T> void spawnParticle(Particle particle, Location location, int count, T data);
 
@@ -1435,6 +1440,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
      * @param count the number of particles
      * @param data the data to use for the particle or null,
      *             the type of this depends on {@link Particle#getDataType()}
+     * @param <T> Type
      */
     public <T> void spawnParticle(Particle particle, double x, double y, double z, int count, T data);
 
@@ -1484,6 +1490,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
      * @param offsetZ the maximum random offset on the Z axis
      * @param data the data to use for the particle or null,
      *             the type of this depends on {@link Particle#getDataType()}
+     * @param <T> Type
      */
     public <T> void spawnParticle(Particle particle, Location location, int count, double offsetX, double offsetY, double offsetZ, T data);
 
@@ -1503,6 +1510,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
      * @param offsetZ the maximum random offset on the Z axis
      * @param data the data to use for the particle or null,
      *             the type of this depends on {@link Particle#getDataType()}
+     * @param <T> Type
      */
     public <T> void spawnParticle(Particle particle, double x, double y, double z, int count, double offsetX, double offsetY, double offsetZ, T data);
 
@@ -1558,6 +1566,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
      *              particle used (normally speed)
      * @param data the data to use for the particle or null,
      *             the type of this depends on {@link Particle#getDataType()}
+     * @param <T> Type
      */
     public <T> void spawnParticle(Particle particle, Location location, int count, double offsetX, double offsetY, double offsetZ, double extra, T data);
 
@@ -1579,6 +1588,7 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
      *              particle used (normally speed)
      * @param data the data to use for the particle or null,
      *             the type of this depends on {@link Particle#getDataType()}
+     * @param <T> Type
      */
     public <T> void spawnParticle(Particle particle, double x, double y, double z, int count, double offsetX, double offsetY, double offsetZ, double extra, T data);
 
