@@ -2124,6 +2124,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
      * @param count the number of particles
      * @param data the data to use for the particle or null,
      *             the type of this depends on {@link Particle#getDataType()}
+     * @param <T> Type
      */
     public <T> void spawnParticle(@NotNull Particle particle, @NotNull Location location, int count, @Nullable T data);
 
@@ -2140,6 +2141,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
      * @param count the number of particles
      * @param data the data to use for the particle or null,
      *             the type of this depends on {@link Particle#getDataType()}
+     * @param <T> Type
      */
     public <T> void spawnParticle(@NotNull Particle particle, double x, double y, double z, int count, @Nullable T data);
 
@@ -2190,6 +2192,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
      * @param offsetZ the maximum random offset on the Z axis
      * @param data the data to use for the particle or null,
      *             the type of this depends on {@link Particle#getDataType()}
+     * @param <T> Type
      */
     public <T> void spawnParticle(@NotNull Particle particle, @NotNull Location location, int count, double offsetX, double offsetY, double offsetZ, @Nullable T data);
 
@@ -2210,6 +2213,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
      * @param offsetZ the maximum random offset on the Z axis
      * @param data the data to use for the particle or null,
      *             the type of this depends on {@link Particle#getDataType()}
+     * @param <T> Type
      */
     public <T> void spawnParticle(@NotNull Particle particle, double x, double y, double z, int count, double offsetX, double offsetY, double offsetZ, @Nullable T data);
 
@@ -2266,6 +2270,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
      *              particle used (normally speed)
      * @param data the data to use for the particle or null,
      *             the type of this depends on {@link Particle#getDataType()}
+     * @param <T> Type
      */
     public <T> void spawnParticle(@NotNull Particle particle, @NotNull Location location, int count, double offsetX, double offsetY, double offsetZ, double extra, @Nullable T data);
 
@@ -2288,6 +2293,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
      *              particle used (normally speed)
      * @param data the data to use for the particle or null,
      *             the type of this depends on {@link Particle#getDataType()}
+     * @param <T> Type
      */
     public <T> void spawnParticle(@NotNull Particle particle, double x, double y, double z, int count, double offsetX, double offsetY, double offsetZ, double extra, @Nullable T data);
 
@@ -2311,6 +2317,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
      * @param force whether to send the particle to players within an extended
      *              range and encourage their client to render it regardless of
      *              settings
+     * @param <T> Particle data type
      */
     public <T> void spawnParticle(@NotNull Particle particle, @NotNull Location location, int count, double offsetX, double offsetY, double offsetZ, double extra, @Nullable T data, boolean force);
 
@@ -2336,6 +2343,7 @@ public interface World extends PluginMessageRecipient, Metadatable {
      * @param force whether to send the particle to players within an extended
      *              range and encourage their client to render it regardless of
      *              settings
+     * @param <T> Particle data type
      */
     public <T> void spawnParticle(@NotNull Particle particle, double x, double y, double z, int count, double offsetX, double offsetY, double offsetZ, double extra, @Nullable T data, boolean force);
 
