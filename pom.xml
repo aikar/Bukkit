@@ -61,6 +61,13 @@
             <!-- Trove Provided by CraftBukkit -->
             <scope>provided</scope>
         </dependency>
+        <!-- Paper - Add Authlib for Profile API -->
+        <dependency>
+            <groupId>com.mojang</groupId>
+            <artifactId>authlib</artifactId>
+            <version>1.5.25</version> <!-- keep in sync with major MC versions -->
+            <scope>compile</scope> <!-- expose to Plugins -->
+        </dependency>
         <dependency>
             <groupId>co.aikar</groupId>
             <artifactId>fastutil-lite</artifactId>
