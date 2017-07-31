@@ -14,6 +14,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
 
+import javax.annotation.Nullable;
+
 /**
  * Represents a living entity, such as a monster or player
  */
@@ -168,6 +170,15 @@ public interface LivingEntity extends Attributable, Entity, Damageable, Projecti
      * @return killer player, or null if none found
      */
     public Player getKiller();
+
+    // Paper start
+    /**
+     * Sets the player identified as the killer of the living entity.
+     *
+     * @param killer player
+     */
+    public void setKiller(@Nullable Player killer);
+    // Paper end
 
     /**
      * Adds the given {@link PotionEffect} to the living entity.
