@@ -21,8 +21,8 @@ public enum Particle {
     SMOKE_LARGE,
     SPELL,
     SPELL_INSTANT,
-    SPELL_MOB,
-    SPELL_MOB_AMBIENT,
+    SPELL_MOB(DustOptions.class), // Paper
+    SPELL_MOB_AMBIENT(DustOptions.class), // Paper
     SPELL_WITCH,
     DRIP_WATER,
     DRIP_LAVA,
@@ -82,6 +82,14 @@ public enum Particle {
         return dataType;
     }
 
+    // Paper start - Particle API expansion
+    /**
+     * Creates a {@link com.destroystokyo.paper.ParticleBuilder}
+     */
+    public com.destroystokyo.paper.ParticleBuilder builder() {
+        return new com.destroystokyo.paper.ParticleBuilder(this);
+    }
+    // Paper end
     /**
      * Options which can be applied to redstone dust particles - a particle
      * color and size.
