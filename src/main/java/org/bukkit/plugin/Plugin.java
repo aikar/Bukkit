@@ -166,6 +166,13 @@ public interface Plugin extends TabExecutor {
     @NotNull
     public Logger getLogger();
 
+    // Paper start - Add SLF4J logger
+    @NotNull
+    default org.slf4j.Logger getSLF4JLogger() {
+        return org.slf4j.LoggerFactory.getLogger(getLogger().getName());
+    }
+    // Paper end
+
     /**
      * Returns the name of the plugin.
      * <p>
