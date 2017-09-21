@@ -114,6 +114,14 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- Paper - Add SLF4J -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- testing -->
         <dependency>
             <groupId>junit</groupId>
