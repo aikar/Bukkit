@@ -42,6 +42,7 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
     private JavaPlugin pluginInit;
     private IllegalStateException pluginState;
     private final Set<String> seenIllegalAccess = Collections.newSetFromMap(new ConcurrentHashMap<>());
+    private java.util.logging.Logger logger; // Paper - add field
 
     static {
         ClassLoader.registerAsParallelCapable();
@@ -58,6 +59,8 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
         this.jar = new JarFile(file);
         this.manifest = jar.getManifest();
         this.url = file.toURI().toURL();
+
+        this.logger = com.destroystokyo.paper.utils.PaperPluginLogger.getLogger(description); // Paper - Register logger early
 
         try {
             Class<?> jarClass;
@@ -203,6 +206,7 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
         pluginState = new IllegalStateException("Initial initialization");
         this.pluginInit = javaPlugin;
 
+        javaPlugin.logger = this.logger; // Paper - set logger
         javaPlugin.init(loader, loader.server, description, dataFolder, file, this);
     }
 }
