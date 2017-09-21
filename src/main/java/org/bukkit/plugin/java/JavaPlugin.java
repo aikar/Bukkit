@@ -50,7 +50,7 @@ public abstract class JavaPlugin extends PluginBase {
     private boolean naggable = true;
     private FileConfiguration newConfig = null;
     private File configFile = null;
-    private Logger logger = null; // Paper - PluginLogger -> Logger
+    Logger logger = null; // Paper - PluginLogger -> Logger, package-private
 
     public JavaPlugin() {
         final ClassLoader classLoader = this.getClass().getClassLoader();
@@ -277,8 +277,11 @@ public abstract class JavaPlugin extends PluginBase {
         this.dataFolder = dataFolder;
         this.classLoader = classLoader;
         this.configFile = new File(dataFolder, "config.yml");
-        // Paper - Handle plugin prefix in implementation
-        this.logger = Logger.getLogger(description.getPrefix() != null ? description.getPrefix() : description.getName());
+        // Paper start
+        if (this.logger == null) {
+            this.logger = com.destroystokyo.paper.utils.PaperPluginLogger.getLogger(this.description);
+        }
+        // Paper end
     }
 
     /**
