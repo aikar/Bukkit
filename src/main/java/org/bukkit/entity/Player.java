@@ -31,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Represents a player, connected or not
  */
-public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginMessageRecipient {
+public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginMessageRecipient, com.destroystokyo.paper.network.NetworkClient { // Paper - Extend NetworkClient
 
     /**
      * Gets the "friendly" name to display of this player. This may include
