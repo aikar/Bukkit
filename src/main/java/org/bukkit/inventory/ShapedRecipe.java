@@ -25,6 +25,7 @@ public class ShapedRecipe implements Recipe, Keyed {
     public ShapedRecipe(@NotNull ItemStack result) {
         Preconditions.checkArgument(result.getType() != Material.AIR, "Recipe must have non-AIR result.");
         this.key = NamespacedKey.randomKey();
+        new Throwable("Warning: A plugin is creating a recipe using a Deprecated method. This will cause you to receive warnings stating 'Tried to load unrecognized recipe: bukkit:<ID>'. Please ask the author to give their recipe a static key using NamespacedKey.").printStackTrace();
         this.output = new ItemStack(result);
     }
 
