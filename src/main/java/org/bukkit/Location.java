@@ -711,6 +711,84 @@ public class Location implements Cloneable, ConfigurationSerializable {
         }
         return world.getNearbyEntitiesByType(clazz, this, xRadius, yRadius, zRadius, predicate);
     }
+
+    /**
+     * Creates explosion at this location with given power
+     *
+     * Will break blocks and ignite blocks on fire.
+     *
+     * @param power The power of explosion, where 4F is TNT
+     * @return false if explosion was canceled, otherwise true
+     */
+    public boolean createExplosion(float power) {
+        return world.createExplosion(this, power);
+    }
+
+    /**
+     * Creates explosion at this location with given power and optionally
+     * setting blocks on fire.
+     *
+     * Will break blocks.
+     *
+     * @param power The power of explosion, where 4F is TNT
+     * @param setFire Whether or not to set blocks on fire
+     * @return false if explosion was canceled, otherwise true
+     */
+    public boolean createExplosion(float power, boolean setFire) {
+        return world.createExplosion(this, power, setFire);
+    }
+
+    /**
+     * Creates explosion at this location with given power and optionally
+     * setting blocks on fire.
+     *
+     * @param power The power of explosion, where 4F is TNT
+     * @param setFire Whether or not to set blocks on fire
+     * @param breakBlocks Whether or not to have blocks be destroyed
+     * @return false if explosion was canceled, otherwise true
+     */
+    public boolean createExplosion(float power, boolean setFire, boolean breakBlocks) {
+        return world.createExplosion(this, power, setFire, breakBlocks);
+    }
+
+    /**
+     * Creates explosion at this location with given power, with the specified entity as the source.
+     *
+     * Will break blocks and ignite blocks on fire.
+     *
+     * @param power The power of explosion, where 4F is TNT
+     * @return false if explosion was canceled, otherwise true
+     */
+    public boolean createExplosion(Entity source, float power) {
+        return world.createExplosion(source, this, power, true, true);
+    }
+
+    /**
+     * Creates explosion at this location with given power and optionally
+     * setting blocks on fire, with the specified entity as the source.
+     *
+     * Will break blocks.
+     *
+     * @param power The power of explosion, where 4F is TNT
+     * @param setFire Whether or not to set blocks on fire
+     * @return false if explosion was canceled, otherwise true
+     */
+    public boolean createExplosion(Entity source, float power, boolean setFire) {
+        return world.createExplosion(source, this, power, setFire, true);
+    }
+
+    /**
+     * Creates explosion at this location with given power and optionally
+     * setting blocks on fire, with the specified entity as the source.
+     *
+     * @param power The power of explosion, where 4F is TNT
+     * @param setFire Whether or not to set blocks on fire
+     * @param breakBlocks Whether or not to have blocks be destroyed
+     * @return false if explosion was canceled, otherwise true
+     */
+    public boolean createExplosion(Entity source, float power, boolean setFire, boolean breakBlocks) {
+        return world.createExplosion(source, source.getLocation(), power, setFire, breakBlocks);
+    }
     // Paper end
     @Override
     public boolean equals(Object obj) {
