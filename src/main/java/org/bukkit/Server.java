@@ -48,6 +48,9 @@ import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.inventory.ItemFactory;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import javax.annotation.Nullable; // Paper
+import javax.annotation.Nonnull; // Paper
+
 /**
  * Represents a server implementation.
  */
@@ -1142,5 +1145,30 @@ public interface Server extends PluginMessageRecipient {
      * @return true if player names should be suggested
      */
     boolean suggestPlayerNamesWhenNullTabCompletions();
+
+    /**
+     * Creates a PlayerProfile for the specified uuid, with name as null
+     * @param uuid UUID to create profile for
+     * @return A PlayerProfile object
+     */
+    com.destroystokyo.paper.profile.PlayerProfile createProfile(@Nonnull UUID uuid);
+
+    /**
+     * Creates a PlayerProfile for the specified name, with UUID as null
+     * @param name Name to create profile for
+     * @return A PlayerProfile object
+     */
+    com.destroystokyo.paper.profile.PlayerProfile createProfile(@Nonnull String name);
+
+    /**
+     * Creates a PlayerProfile for the specified name/uuid
+     *
+     * Both UUID and Name can not be null at same time. One must be supplied.
+     *
+     * @param uuid UUID to create profile for
+     * @param name Name to create profile for
+     * @return A PlayerProfile object
+     */
+    com.destroystokyo.paper.profile.PlayerProfile createProfile(@Nullable UUID uuid, @Nullable String name);
     // Paper end
 }
