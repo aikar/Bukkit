@@ -4,6 +4,8 @@ import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.SkullType;
 import org.bukkit.block.data.BlockData;
+import com.destroystokyo.paper.profile.PlayerProfile;
+import javax.annotation.Nullable;
 
 /**
  * Represents a captured state of a skull block.
@@ -54,6 +56,20 @@ public interface Skull extends BlockState {
      * @param player the owning player
      */
     public void setOwningPlayer(OfflinePlayer player);
+
+    // Paper start
+    /**
+     * Sets this skull to use the supplied Player Profile, which can include textures already prefilled.
+     * @param profile The profile to set this Skull to use, may not be null
+     */
+    void setPlayerProfile(PlayerProfile profile);
+
+    /**
+     * If the skull has an owner, per {@link #hasOwner()}, return the owners {@link PlayerProfile}
+     * @return The profile of the owner, if set
+     */
+    @Nullable PlayerProfile getPlayerProfile();
+    // Paper end
 
     /**
      * Gets the rotation of the skull in the world
