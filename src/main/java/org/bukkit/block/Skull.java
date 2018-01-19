@@ -7,6 +7,7 @@ import org.bukkit.block.data.BlockData;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import com.destroystokyo.paper.profile.PlayerProfile; // Paper
 
 /**
  * Represents a captured state of a skull block.
@@ -60,6 +61,20 @@ public interface Skull extends TileState {
      * @param player the owning player
      */
     public void setOwningPlayer(@NotNull OfflinePlayer player);
+
+    // Paper start
+    /**
+     * Sets this skull to use the supplied Player Profile, which can include textures already prefilled.
+     * @param profile The profile to set this Skull to use, may not be null
+     */
+    void setPlayerProfile(@NotNull PlayerProfile profile);
+
+    /**
+     * If the skull has an owner, per {@link #hasOwner()}, return the owners {@link PlayerProfile}
+     * @return The profile of the owner, if set
+     */
+    @Nullable PlayerProfile getPlayerProfile();
+    // Paper end
 
     /**
      * Gets the rotation of the skull in the world (or facing direction if this
