@@ -31,6 +31,7 @@ import org.json.simple.parser.ParseException;
 // Paper start
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import com.destroystokyo.paper.VersionHistoryManager;
 // Paper end
 
 public class VersionCommand extends BukkitCommand {
@@ -49,6 +50,7 @@ public class VersionCommand extends BukkitCommand {
 
         if (args.length == 0) {
             sender.sendMessage("This server is running " + Bukkit.getName() + " version " + Bukkit.getVersion() + " (Implementing API version " + Bukkit.getBukkitVersion() + ")");
+            tellHistory(sender); // Paper
             sendVersion(sender);
         } else {
             StringBuilder name = new StringBuilder();
@@ -84,6 +86,22 @@ public class VersionCommand extends BukkitCommand {
         }
         return true;
     }
+
+    // Paper start - show version history
+    private void tellHistory(final CommandSender sender) {
+        final VersionHistoryManager.VersionData data = VersionHistoryManager.INSTANCE.getVersionData();
+        if (data == null) {
+            return;
+        }
+
+        final String oldVersion = data.getOldVersion();
+        if (oldVersion == null) {
+            return;
+        }
+
+        sender.sendMessage("Previous version: " + oldVersion);
+    }
+    // Paper end
 
     private void describeToSender(Plugin plugin, CommandSender sender) {
         PluginDescriptionFile desc = plugin.getDescription();
