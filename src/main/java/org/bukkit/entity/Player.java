@@ -3,6 +3,7 @@ package org.bukkit.entity;
 import java.net.InetSocketAddress;
 
 import com.destroystokyo.paper.Title;
+import com.destroystokyo.paper.profile.PlayerProfile;
 import org.bukkit.Achievement;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
@@ -1768,6 +1769,19 @@ public interface Player extends HumanEntity, Conversable, CommandSender, Offline
      *         was {@link org.bukkit.event.player.PlayerResourcePackStatusEvent.Status#SUCCESSFULLY_LOADED}
      */
     boolean hasResourcePack();
+
+    /**
+     * Gets a copy of this players profile
+     * @return The players profile object
+     */
+    PlayerProfile getPlayerProfile();
+
+    /**
+     * Changes the PlayerProfile for this player. This will cause this player
+     * to be reregistered to all clients that can currently see this player
+     * @param profile The new profile to use
+     */
+    void setPlayerProfile(PlayerProfile profile);
     // Paper end
 
     // Spigot start
