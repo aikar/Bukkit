@@ -335,4 +335,13 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, Permissible, Inv
      */
     @Deprecated
     public void setShoulderEntityRight(Entity entity);
+
+    // Paper start - Add method to open already placed sign
+    /**
+     * Opens an editor window for the specified sign
+     *
+     * @param sign The sign to open
+     */
+    void openSign(org.bukkit.block.Sign sign);
+    // Paper end
 }
