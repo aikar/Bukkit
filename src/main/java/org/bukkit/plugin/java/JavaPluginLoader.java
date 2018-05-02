@@ -331,7 +331,7 @@ public final class JavaPluginLoader implements PluginLoader {
             } catch (Throwable ex) {
                 server.getLogger().log(Level.SEVERE, "Error occurred while enabling " + plugin.getDescription().getFullName() + " (Is it up to date?)", ex);
                 // Paper start - Disable plugins that fail to load
-                disablePlugin(jPlugin);
+                server.getPluginManager().disablePlugin(jPlugin, true); // Paper - close Classloader on disable - She's dead jim
                 return;
                 // Paper end
             }
@@ -344,6 +344,12 @@ public final class JavaPluginLoader implements PluginLoader {
 
     @Override
     public void disablePlugin(@NotNull Plugin plugin) {
+    // Paper start - close Classloader on disable
+        disablePlugin(plugin, false); // Retain old behavior unless requested
+    }
+
+    public void disablePlugin(@NotNull Plugin plugin, boolean closeClassloader) {
+        // Paper end - close Class Loader on disable
         Validate.isTrue(plugin instanceof JavaPlugin, "Plugin is not associated with this PluginLoader");
 
         if (plugin.isEnabled()) {
@@ -370,6 +376,16 @@ public final class JavaPluginLoader implements PluginLoader {
                 for (String name : names) {
                     removeClass(name);
                 }
+                // Paper start - close Class Loader on disable
+                try {
+                    if (closeClassloader) {
+                        loader.close();
+                    }
+                } catch (IOException e) {
+                    server.getLogger().log(Level.WARNING, "Error closing the Plugin Class Loader for " + plugin.getDescription().getFullName());
+                    e.printStackTrace();
+                }
+                // Paper end
             }
         }
     }
