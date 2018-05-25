@@ -492,6 +492,29 @@ public class Location implements Cloneable, ConfigurationSerializable {
     }
 
     public boolean isChunkLoaded() { return world.isChunkLoaded(locToBlock(x) >> 4, locToBlock(z) >> 4); } // Paper
+
+    // Paper start
+    /**
+     * @return A new location where X/Y/Z are on the Block location (integer value of X/Y/Z)
+     */
+    public Location toBlockLocation() {
+        Location blockLoc = clone();
+        blockLoc.setX(getBlockX());
+        blockLoc.setY(getBlockY());
+        blockLoc.setZ(getBlockZ());
+        return blockLoc;
+    }
+    /**
+     * @return A new location where X/Y/Z are the center of the block
+     */
+    public Location toCenterLocation() {
+        Location centerLoc = clone();
+        centerLoc.setX(getBlockX() + 0.5);
+        centerLoc.setY(getBlockY() + 0.5);
+        centerLoc.setZ(getBlockZ() + 0.5);
+        return centerLoc;
+    }
+    // Paper end
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
