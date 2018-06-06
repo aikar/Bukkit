@@ -561,5 +561,13 @@ public class ItemStack implements Cloneable, ConfigurationSerializable {
     public String getI18NDisplayName() {
         return Bukkit.getServer().getItemFactory().getI18NDisplayName(this);
     }
+
+    public int getMaxItemUseDuration() {
+        if (type == null || type == Material.AIR || !type.isItem()) {
+            return 0;
+        }
+        // Requires access to NMS
+        return ensureServerConversions().getMaxItemUseDuration();
+    }
     // Paper end
 }
