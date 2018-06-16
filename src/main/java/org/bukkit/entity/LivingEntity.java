@@ -401,5 +401,19 @@ public interface LivingEntity extends Attributable, Entity, Damageable, Projecti
      * @param arrows Number of arrows to stick in this entity
      */
     void setArrowsStuck(int arrows);
+
+    /**
+     * Get the delay (in ticks) before blocking is effective for this entity
+     *
+     * @return Delay in ticks
+     */
+    int getShieldBlockingDelay();
+
+    /**
+     * Set the delay (in ticks) before blocking is effective for this entity
+     *
+     * @param delay Delay in ticks
+     */
+    void setShieldBlockingDelay(int delay);
     // Paper end
 }
