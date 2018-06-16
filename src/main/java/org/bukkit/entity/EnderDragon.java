@@ -3,7 +3,7 @@ package org.bukkit.entity;
 /**
  * Represents an Ender Dragon
  */
-public interface EnderDragon extends ComplexLivingEntity {
+public interface EnderDragon extends ComplexLivingEntity, com.destroystokyo.paper.entity.SentientNPC { // Paper
 
     /**
      * Represents a phase or action that an Ender Dragon can perform.
