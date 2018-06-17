@@ -17,6 +17,7 @@ import org.bukkit.permissions.Permissible;
  */
 public interface HumanEntity extends LivingEntity, AnimalTamer, Permissible, InventoryHolder {
 
+    float getAttackPct(); // EMC
     /**
      * Returns the name of this player
      *
