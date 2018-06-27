@@ -2,11 +2,12 @@ package org.bukkit.entity;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import com.destroystokyo.paper.entity.RangedEntity;
 
 /**
  * Represents a Skeleton.
  */
-public interface Skeleton extends Monster {
+public interface Skeleton extends Monster, RangedEntity { // Paper
 
     /**
      * Gets the current type of this skeleton.
