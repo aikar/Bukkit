@@ -12,6 +12,7 @@ import org.bukkit.attribute.Attributable;
 import org.bukkit.block.Block;
 import org.bukkit.entity.memory.MemoryKey;
 import org.bukkit.inventory.EntityEquipment;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
@@ -642,5 +643,32 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
      * @param delay Delay in ticks
      */
     void setShieldBlockingDelay(int delay);
+
+    /**
+     * Get's the item being actively "used" or consumed.
+     * @return The item. Will be null if no active item.
+     */
+    @Nullable
+    ItemStack getActiveItem();
+
+    /**
+     * Get's remaining time a player needs to keep hands raised with an item to finish using it.
+     * @return Remaining ticks to use the item
+     */
+    int getItemUseRemainingTime();
+
+    /**
+     * Get how long the players hands have been raised (Charging Bow attack, using a potion, etc)
+     *
+     * @return Get how long the players hands have been raised (Charging Bow attack, using a potion, etc)
+     */
+    int getHandRaisedTime();
+
+    /**
+     * Whether or not this entity is using or charging an attack (Bow pulled back, drinking potion, eating food)
+     *
+     * @return Whether or not this entity is using or charging an attack (Bow pulled back, drinking potion, eating food)
+     */
+    boolean isHandRaised();
     // Paper end
 }
