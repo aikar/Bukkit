@@ -23,11 +23,14 @@
 
 package com.empireminecraft.api.meta;
 
+import org.bukkit.Bukkit;
+
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 
 public class MetaMap <K extends MetaKey> extends HashMap<String, Object> {
 
+    public boolean allowAsync = false;
     public MetaMap() {
         super(0);
     }
@@ -88,6 +91,15 @@ public class MetaMap <K extends MetaKey> extends HashMap<String, Object> {
 
     public Object put(MetaKey key, Object value) {
         return put(key.key(), value);
+    }
+
+    @Override
+    public Object put(String key, Object value) {
+        if (!allowAsync && !Bukkit.isPrimaryThread()) {
+            Bukkit.getLogger().severe("Asynchronous Meta Set: " + key + " - " + (value != null ? value : "null"));
+            new IllegalStateException().printStackTrace();
+        }
+        return super.put(key, value);
     }
 
     public boolean containsKey(K key) {
