@@ -657,6 +657,16 @@ public interface World extends PluginMessageRecipient, Metadatable {
      */
     public Collection<Entity> getNearbyEntities(Location location, double x, double y, double z);
 
+    // Paper start - getEntity by UUID API
+    /**
+     * Gets an entity in this world by its UUID
+     *
+     * @param uuid the UUID of the entity
+     * @return the entity with the given UUID, or null if it isn't found
+     */
+    public Entity getEntity(UUID uuid);
+    // Paper end
+
     /**
      * Gets the unique name of this world
      *
