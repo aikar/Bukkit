@@ -1,5 +1,6 @@
 package org.bukkit.entity;
 
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.EntityEffect;
 import org.bukkit.Nameable;
@@ -544,5 +545,12 @@ public interface Entity extends Metadatable, CommandSender, Nameable {
      * @return True if entity spawned from a mob spawner
      */
     boolean fromMobSpawner();
+
+    /**
+     * Gets the latest chunk an entity is currently or was in.
+     *
+     * @return The current, or most recent chunk if the entity is invalid (which may load the chunk)
+     */
+    Chunk getChunk();
     // Paper end
 }
