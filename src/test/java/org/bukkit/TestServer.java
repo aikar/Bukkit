@@ -29,6 +29,16 @@ public final class TestServer implements InvocationHandler {
                         }
                     }
                 );
+            // Paper start
+            methodMap.put(
+                Server.class.getMethod("getTag", String.class, NamespacedKey.class, Class.class),
+                new MethodHandler() {
+                    public Object handle(TestServer server, Object[] args) {
+                        return new com.destroystokyo.paper.MaterialSetTag();
+                    }
+                }
+            );
+            // Paper end
             methodMap.put(
                     Server.class.getMethod("getPluginManager"),
                     new MethodHandler() {
