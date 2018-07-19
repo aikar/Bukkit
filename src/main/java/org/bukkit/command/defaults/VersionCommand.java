@@ -266,7 +266,7 @@ public class VersionCommand extends BukkitCommand {
             return getFromJenkins(currentVer);
         } catch (NumberFormatException ex) {
             verInfo = verInfo.replace("\"", "");
-            return getFromRepo("PaperMC/Paper", verInfo);
+            return getFromRepo("PaperMC/Paper", "pre/1.13", verInfo);
         }
             /*
             BufferedReader reader = Resources.asCharSource(
@@ -288,7 +288,7 @@ public class VersionCommand extends BukkitCommand {
     private static int getFromJenkins(int currentVer) {
         try {
             BufferedReader reader = Resources.asCharSource(
-                    new URL("https://ci.destroystokyo.com/job/Paper/lastSuccessfulBuild/buildNumber"), // Paper
+                    new URL("https://ci.destroystokyo.com/job/Paper-1.13/lastSuccessfulBuild/buildNumber"), // Paper
                     Charsets.UTF_8
             ).openBufferedStream();
             try {
@@ -307,10 +307,9 @@ public class VersionCommand extends BukkitCommand {
     }
 
     // Contributed by Techcable <Techcable@outlook.com> in GH PR #65
-    private static final String BRANCH = "master";
-    private static int getFromRepo(String repo, String hash) {
+    private static int getFromRepo(String repo, String branch, String hash) {
         try {
-            HttpURLConnection connection = (HttpURLConnection) new URL("https://api.github.com/repos/" + repo + "/compare/" + BRANCH + "..." + hash).openConnection();
+            HttpURLConnection connection = (HttpURLConnection) new URL("https://api.github.com/repos/" + repo + "/compare/" + branch + "..." + hash).openConnection();
             connection.connect();
             if (connection.getResponseCode() == HttpURLConnection.HTTP_NOT_FOUND) return -2; // Unknown commit
             try (
