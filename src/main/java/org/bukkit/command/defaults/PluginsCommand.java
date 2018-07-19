@@ -38,7 +38,14 @@ public class PluginsCommand extends BukkitCommand {
         TreeMap<String, ChatColor> plugins = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
         for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
-            plugins.put(plugin.getDescription().getName(), plugin.isEnabled() ? ChatColor.GREEN : ChatColor.RED);
+            // Paper start - Add an asterisk to legacy plugins (so admins are aware)
+            String pluginName = plugin.getDescription().getName();
+            if (org.bukkit.UnsafeValues.isLegacyPlugin(plugin)) {
+                pluginName += "*";
+            }
+
+            plugins.put(pluginName, plugin.isEnabled() ? ChatColor.GREEN : ChatColor.RED);
+            // Paper end
         }
 
         StringBuilder pluginList = new StringBuilder();

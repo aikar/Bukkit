@@ -66,4 +66,10 @@ public interface UnsafeValues {
      * @return true if a file matching this key was found and deleted
      */
     boolean removeAdvancement(NamespacedKey key);
+
+    // Paper start - Add legacy check util
+    static boolean isLegacyPlugin(org.bukkit.plugin.Plugin plugin) {
+        return !("1.13".equals(plugin.getDescription().getAPIVersion()));
+    }
+    // Paper end
 }

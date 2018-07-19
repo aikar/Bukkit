@@ -303,7 +303,14 @@ public final class JavaPluginLoader implements PluginLoader {
         Validate.isTrue(plugin instanceof JavaPlugin, "Plugin is not associated with this PluginLoader");
 
         if (!plugin.isEnabled()) {
-            plugin.getLogger().info("Enabling " + plugin.getDescription().getFullName());
+            // Paper start - Add an asterisk to legacy plugins (so admins are aware)
+            String enableMsg = "Enabling " + plugin.getDescription().getFullName();
+            if (org.bukkit.UnsafeValues.isLegacyPlugin(plugin)) {
+                enableMsg += "*";
+            }
+
+            plugin.getLogger().info(enableMsg);
+            // Paper end
 
             JavaPlugin jPlugin = (JavaPlugin) plugin;
 
