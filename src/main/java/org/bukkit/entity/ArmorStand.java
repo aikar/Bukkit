@@ -13,7 +13,7 @@ public interface ArmorStand extends LivingEntity {
      * Returns the item the armor stand is currently holding.
      *
      * @return the held item
-     * @deprecated prefer {@link EntityEquipment#getItemInHand()}
+     * @deprecated prefer {@link ArmorStand#getItem(EquipmentSlot)} // Paper
      * @see #getEquipment()
      */
     @NotNull
@@ -25,7 +25,7 @@ public interface ArmorStand extends LivingEntity {
      *
      * @param item the item to hold
      * @deprecated prefer
-     * {@link EntityEquipment#setItemInHand(org.bukkit.inventory.ItemStack)}
+     * {@link ArmorStand#setItem(EquipmentSlot, ItemStack)} // Paper
      * @see #getEquipment()
      */
     @Deprecated
@@ -376,5 +376,71 @@ public interface ArmorStand extends LivingEntity {
      * @param tick {@code true} if this armour stand can tick, {@code false} otherwise
      */
     void setCanTick(final boolean tick);
+
+    /**
+     * Returns the item the armor stand has
+     * equip in the given equipment slot
+     *
+     * @param slot the equipment slot to get
+     * @return the ItemStack in the equipment slot
+     */
+    @NotNull
+    ItemStack getItem(@NotNull final org.bukkit.inventory.EquipmentSlot slot);
+
+    /**
+     * Sets the item the armor stand has
+     * equip in the given equipment slot
+     *
+     * @param slot the equipment slot to set
+     * @param item the item to hold
+     */
+    void setItem(@NotNull final org.bukkit.inventory.EquipmentSlot slot, @Nullable final ItemStack item);
+
+    /**
+     * Get the list of disabled slots
+     *
+     * @return list of disabled slots
+     */
+    @NotNull
+    java.util.Set<org.bukkit.inventory.EquipmentSlot> getDisabledSlots();
+
+    /**
+     * Set the disabled slots
+     *
+     * This makes it so a player is unable to interact with the Armor Stand to place, remove, or replace an item in the given slot(s)
+     * Note: Once a slot is disabled, the only way to get an item back it to break the armor stand.
+     *
+     * @param slots var-arg array of slots to lock
+     */
+    void setDisabledSlots(@NotNull org.bukkit.inventory.EquipmentSlot... slots);
+
+    /**
+     * Disable specific slots, adding them
+     * to the currently disabled slots
+     *
+     * This makes it so a player is unable to interact with the Armor Stand to place, remove, or replace an item in the given slot(s)
+     * Note: Once a slot is disabled, the only way to get an item back it to break the armor stand.
+     *
+     * @param slots var-arg array of slots to lock
+     */
+    void addDisabledSlots(@NotNull final org.bukkit.inventory.EquipmentSlot... slots);
+
+    /**
+     * Remove the given slots from the disabled
+     * slots list, enabling them.
+     *
+     * This makes it so a player is able to interact with the Armor Stand to place, remove, or replace an item in the given slot(s)
+     *
+     * @param slots var-arg array of slots to unlock
+     */
+    void removeDisabledSlots(@NotNull final org.bukkit.inventory.EquipmentSlot... slots);
+
+    /**
+     * Check if a specific slot is disabled
+     *
+     * @param slot The slot to check
+     * @return {@code true} if the slot is disabled, else {@code false}.
+     */
+    boolean isSlotDisabled(@NotNull org.bukkit.inventory.EquipmentSlot slot);
     // Paper end
 }
