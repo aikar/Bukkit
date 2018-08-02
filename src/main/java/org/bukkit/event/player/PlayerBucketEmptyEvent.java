@@ -5,6 +5,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,6 +23,16 @@ public class PlayerBucketEmptyEvent extends PlayerBucketEvent {
     public PlayerBucketEmptyEvent(@NotNull final Player who, @NotNull final Block block, @NotNull final Block blockClicked, @NotNull final BlockFace blockFace, @NotNull final Material bucket, @NotNull final ItemStack itemInHand) {
         super(who, block, blockClicked, blockFace, bucket, itemInHand);
     }
+    // Paper start - add EquipmentSlot
+    @Deprecated
+    public PlayerBucketEmptyEvent(@NotNull final Player who, @NotNull final Block blockClicked, @NotNull final BlockFace blockFace, @NotNull final Material bucket, @NotNull final ItemStack itemInHand, @org.jetbrains.annotations.Nullable final EquipmentSlot hand) {
+        super(who, blockClicked, blockFace, bucket, itemInHand, hand);
+    }
+
+    public PlayerBucketEmptyEvent(@NotNull final Player who, @NotNull final Block block, @NotNull final Block blockClicked, @NotNull final BlockFace blockFace, @NotNull final Material bucket, @NotNull final ItemStack itemInHand, @org.jetbrains.annotations.Nullable final EquipmentSlot hand) {
+        super(who, block, blockClicked, blockFace, bucket, itemInHand, hand);
+    }
+    // Paper end
 
     @NotNull
     @Override

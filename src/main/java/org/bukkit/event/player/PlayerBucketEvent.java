@@ -5,6 +5,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -19,6 +20,7 @@ public abstract class PlayerBucketEvent extends PlayerEvent implements Cancellab
     private final Block blockClicked;
     private final BlockFace blockFace;
     private final Material bucket;
+    private final EquipmentSlot hand; // Paper - add EquipmentSlot
 
     @Deprecated
     public PlayerBucketEvent(@NotNull final Player who, @NotNull final Block blockClicked, @NotNull final BlockFace blockFace, @NotNull final Material bucket, @NotNull final ItemStack itemInHand) {
@@ -26,12 +28,24 @@ public abstract class PlayerBucketEvent extends PlayerEvent implements Cancellab
     }
 
     public PlayerBucketEvent(@NotNull final Player who, @NotNull final Block block, @NotNull final Block blockClicked, @NotNull final BlockFace blockFace, @NotNull final Material bucket, @NotNull final ItemStack itemInHand) {
+        // Paper start - add EquipmentSlot
+        this(who, block, blockClicked, blockFace, bucket, itemInHand, null);
+    }
+
+    @Deprecated
+    public PlayerBucketEvent(@NotNull final Player who,@NotNull final Block blockClicked, @NotNull final BlockFace blockFace, @NotNull final Material bucket, @NotNull final ItemStack itemInHand, @Nullable  final EquipmentSlot hand) {
+        this(who, null, blockClicked, blockFace, bucket, itemInHand, hand);
+    }
+
+    public PlayerBucketEvent(@NotNull final Player who, @NotNull final Block block, @NotNull final Block blockClicked, @NotNull final BlockFace blockFace, @NotNull final Material bucket, @NotNull final ItemStack itemInHand, @Nullable  final EquipmentSlot hand) {
+        // Paper end
         super(who);
         this.block = block;
         this.blockClicked = blockClicked;
         this.blockFace = blockFace;
         this.itemStack = itemInHand;
         this.bucket = bucket;
+        this.hand = hand == null ? player.getInventory().getItemInMainHand().equals(itemInHand) ? EquipmentSlot.HAND : EquipmentSlot.OFF_HAND : hand; // Paper - add EquipmentSlot
     }
 
     /**
@@ -92,6 +106,18 @@ public abstract class PlayerBucketEvent extends PlayerEvent implements Cancellab
     public BlockFace getBlockFace() {
         return blockFace;
     }
+
+    // Paper start
+    /**
+     * The hand used to perform this action.
+     *
+     * @return the hand used
+     */
+    @NotNull
+    public EquipmentSlot getHand() {
+        return hand;
+    }
+    // Paper end
 
     @Override
     public boolean isCancelled() {
