@@ -207,6 +207,22 @@ public interface World extends PluginMessageRecipient, Metadatable {
     @NotNull
     public Chunk getChunkAt(@NotNull Block block);
 
+    // Paper start
+    /**
+     * Gets the chunk at the specified chunk key, which is the X and Z packed into a long.
+     *
+     * See {@link Chunk#getChunkKey()} for easy access to the key, or you may calculate it as:
+     * long chunkKey = (long) chunkX &amp; 0xffffffffL | ((long) chunkZ &amp; 0xffffffffL) &gt;&gt; 32;
+     *
+     * @param chunkKey The Chunk Key to look up the chunk by
+     * @return The chunk at the specified key
+     */
+    @NotNull
+    public default Chunk getChunkAt(long chunkKey) {
+        return getChunkAt((int) chunkKey, (int) (chunkKey >> 32));
+    }
+    // Paper end
+
     /**
      * Checks if the specified {@link Chunk} is loaded
      *
