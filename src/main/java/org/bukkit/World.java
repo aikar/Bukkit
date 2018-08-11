@@ -26,7 +26,7 @@ import org.bukkit.util.Vector;
 /**
  * Represents a world, which may contain entities, chunks and blocks
  */
-public interface World extends PluginMessageRecipient, Metadatable {
+public interface World extends PluginMessageRecipient, Metadatable, com.destroystokyo.paper.meta.PersistentMetaContainer { // Paper
 
     // Paper start
     /**

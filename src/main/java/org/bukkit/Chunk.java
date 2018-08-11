@@ -1,5 +1,11 @@
 package org.bukkit;
 
+// Paper start
+import com.destroystokyo.paper.meta.PersistentMetaKey;
+import com.destroystokyo.paper.meta.PersistentMetaMap;
+import com.destroystokyo.paper.meta.TempMetaKey;
+import com.destroystokyo.paper.meta.TempMetaMap;
+// Paper end
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Entity;
@@ -7,7 +13,7 @@ import org.bukkit.entity.Entity;
 /**
  * Represents a chunk of blocks
  */
-public interface Chunk {
+public interface Chunk extends com.destroystokyo.paper.meta.PersistentMetaContainer { // Paper
 
     /**
      * Gets the X-coordinate of this chunk
@@ -30,6 +36,8 @@ public interface Chunk {
     default long getChunkKey() {
         return (long) getX() & 0xffffffffL | ((long) getZ() & 0xffffffffL) << 32;
     }
+    PersistentMetaMap getLocationPersistentMetaMap(double x, double y, double z, PersistentMetaKey key, boolean isBlockMeta, boolean isWrite);
+    TempMetaMap getLocationTempMetaMap(double x, double y, double z, TempMetaKey key, boolean isBlockMeta, boolean isWrite);
     // Paper end
 
     /**

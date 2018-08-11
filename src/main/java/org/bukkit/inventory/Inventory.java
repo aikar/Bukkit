@@ -13,7 +13,7 @@ import org.bukkit.event.inventory.InventoryType;
  * Interface to the various inventories. Behavior relating to {@link
  * Material#AIR} is unspecified.
  */
-public interface Inventory extends Iterable<ItemStack> {
+public interface Inventory extends Iterable<ItemStack>, com.destroystokyo.paper.meta.MetaContainer { // Paper
 
     /**
      * Returns the size of the inventory

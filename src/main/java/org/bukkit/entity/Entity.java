@@ -20,7 +20,7 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 /**
  * Represents a base entity in the world
  */
-public interface Entity extends Metadatable, CommandSender, Nameable {
+public interface Entity extends Metadatable, CommandSender, Nameable, com.destroystokyo.paper.meta.PersistentMetaContainer { // Paper
 
     /**
      * Gets the entity's current position

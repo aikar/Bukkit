@@ -7,7 +7,9 @@ import java.util.List;
 /**
  * This interface is implemented by all objects that can provide metadata
  * about themselves.
+ * @deprecated This API has many flaws. Use Papers Meta API. {@link com.destroystokyo.paper.meta.Meta}
  */
+@Deprecated
 public interface Metadatable {
     /**
      * Sets a metadata value in the implementing object's metadata store.

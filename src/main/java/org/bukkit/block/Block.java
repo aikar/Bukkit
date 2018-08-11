@@ -1,5 +1,11 @@
 package org.bukkit.block;
 
+// Paper start
+import com.destroystokyo.paper.meta.PersistentMetaKey;
+import com.destroystokyo.paper.meta.PersistentMetaMap;
+import com.destroystokyo.paper.meta.TempMetaKey;
+import com.destroystokyo.paper.meta.TempMetaMap;
+// Paper end
 import java.util.Collection;
 
 import org.bukkit.Chunk;
@@ -21,7 +27,31 @@ import org.bukkit.metadata.Metadatable;
  * (i.e. lighting and power) may not be able to be safely accessed during world
  * generation when used in cases like BlockPhysicsEvent!!!!
  */
-public interface Block extends Metadatable {
+public interface Block extends Metadatable, com.destroystokyo.paper.meta.PersistentMetaContainer { // Paper
+
+    // Paper start
+    /**
+     * Gets the backing persistent MetaMap for this location. If write is false, and no meta exists, null will be returned
+     * @param key The key thats needing to access the meta map
+     * @param isWrite If the map should be created if it doesn't exists first
+     * @return The map or null if isWrite is false and it doesnt exists.
+     */
+    @Override
+    default PersistentMetaMap getPersistentMetaMap(PersistentMetaKey key, boolean isWrite) {
+        return getChunk().getLocationPersistentMetaMap(getX(), getY(), getZ(), key, true, isWrite);
+    }
+
+    /**
+     * Gets the backing temporary MetaMap for this location. If write is false, and no meta exists, null will be returned
+     * @param key The key thats needing to access the meta map
+     * @param isWrite If the map should be created if it doesn't exists first
+     * @return The map or null if isWrite is false and it doesnt exists.
+     */
+    @Override
+    default TempMetaMap getTempMetaMap(TempMetaKey key, boolean isWrite) {
+        return getChunk().getLocationTempMetaMap(getX(), getY(), getZ(), key, true, isWrite);
+    }
+    // Paper end
 
     /**
      * Gets the metadata for this block

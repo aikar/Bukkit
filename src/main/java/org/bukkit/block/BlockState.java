@@ -1,5 +1,7 @@
 package org.bukkit.block;
 
+import com.destroystokyo.paper.meta.TempMetaKey; // Paper
+import com.destroystokyo.paper.meta.TempMetaMap; // Paper
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -17,7 +19,14 @@ import org.bukkit.metadata.Metadatable;
  * change the state of the block and you will not know, or they may change the
  * block to another type entirely, causing your BlockState to become invalid.
  */
-public interface BlockState extends Metadatable {
+public interface BlockState extends Metadatable, com.destroystokyo.paper.meta.PersistentMetaContainer { // Paper
+
+    // Paper start
+    @Override
+    default TempMetaMap getTempMetaMap(TempMetaKey key, boolean isWrite) {
+        return getLocation().getBlock().getTempMetaMap(key, isWrite);
+    }
+    // Paper end
 
     /**
      * Gets the block represented by this block state.

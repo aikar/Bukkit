@@ -10,7 +10,10 @@ import org.bukkit.util.Vector;
 
 // Paper start
 import java.util.Collection;
-import java.util.Collections;
+import com.destroystokyo.paper.meta.PersistentMetaKey;
+import com.destroystokyo.paper.meta.PersistentMetaMap;
+import com.destroystokyo.paper.meta.TempMetaKey;
+import com.destroystokyo.paper.meta.TempMetaMap;
 import java.util.function.Predicate;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -25,7 +28,7 @@ import org.bukkit.entity.Player;
  * magnitude than 360 are valid, but may be normalized to any other equivalent
  * representation by the implementation.
  */
-public class Location implements Cloneable, ConfigurationSerializable {
+public class Location implements Cloneable, ConfigurationSerializable, com.destroystokyo.paper.meta.PersistentMetaContainer { // Paper
     private World world;
     private double x;
     private double y;
@@ -834,7 +837,30 @@ public class Location implements Cloneable, ConfigurationSerializable {
     public boolean createExplosion(Entity source, float power, boolean setFire, boolean breakBlocks) {
         return world.createExplosion(source, source.getLocation(), power, setFire, breakBlocks);
     }
+
+    /**
+     * Gets the backing persistent MetaMap for this location. If write is false, and no meta exists, null will be returned
+     * @param key The key thats needing to access the meta map
+     * @param isWrite If the map should be created if it doesn't exists first
+     * @return The map or null if isWrite is false and it doesnt exists.
+     */
+    @Override
+    public PersistentMetaMap getPersistentMetaMap(PersistentMetaKey key, boolean isWrite) {
+        return getChunk().getLocationPersistentMetaMap(getX(), getY(), getZ(), key, false, isWrite);
+    }
+
+    /**
+     * Gets the backing temporary MetaMap for this location. If write is false, and no meta exists, null will be returned
+     * @param key The key thats needing to access the meta map
+     * @param isWrite If the map should be created if it doesn't exists first
+     * @return The map or null if isWrite is false and it doesnt exists.
+     */
+    @Override
+    public TempMetaMap getTempMetaMap(TempMetaKey key, boolean isWrite) {
+        return getChunk().getLocationTempMetaMap(getX(), getY(), getZ(), key, false, isWrite);
+    }
     // Paper end
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
