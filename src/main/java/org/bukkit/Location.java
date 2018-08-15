@@ -15,7 +15,6 @@ import org.jetbrains.annotations.Nullable;
 
 // Paper start
 import java.util.Collection;
-import java.util.Collections;
 import java.util.function.Predicate;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -605,6 +604,17 @@ public class Location implements Cloneable, ConfigurationSerializable {
         blockLoc.setZ(getBlockZ());
         return blockLoc;
     }
+
+    // Paper Start
+    /**
+     * @return The block key for this location's block location.
+     * @see Block#getBlockKey(int, int, int)
+     */
+    public long toBlockKey() {
+        return Block.getBlockKey(getBlockX(), getBlockY(), getBlockZ());
+    }
+    // Paper End
+
     /**
      * @return A new location where X/Y/Z are the center of the block
      */

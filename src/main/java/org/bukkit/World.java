@@ -90,6 +90,38 @@ public interface World extends PluginMessageRecipient, Metadatable {
     @NotNull
     public Block getBlockAt(@NotNull Location location);
 
+    // Paper start
+    /**
+     * Gets the {@link Block} at the given block key
+     *
+     * @param key The block key. See {@link Block#getBlockKey()}
+     * @return Block at the key
+     * @see Block#getBlockKey(int, int, int)
+     */
+    @NotNull
+    public default Block getBlockAtKey(long key) {
+        int x = Block.getBlockKeyX(key);
+        int y = Block.getBlockKeyY(key);
+        int z = Block.getBlockKeyZ(key);
+        return getBlockAt(x, y, z);
+    }
+
+    /**
+     * Gets the {@link Location} at the given block key
+     *
+     * @param key The block key. See {@link Location#toBlockKey()}
+     * @return Location at the key
+     * @see Block#getBlockKey(int, int, int)
+     */
+    @NotNull
+    public default Location getLocationAtKey(long key) {
+        int x = Block.getBlockKeyX(key);
+        int y = Block.getBlockKeyY(key);
+        int z = Block.getBlockKeyZ(key);
+        return new Location(this, x, y, z);
+    }
+    // Paper end
+
     /**
      * Gets the highest non-empty (impassable) coordinate at the given
      * coordinates.
