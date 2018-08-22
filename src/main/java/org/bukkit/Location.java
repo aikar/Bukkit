@@ -3,6 +3,7 @@ package org.bukkit;
 import com.google.common.base.Preconditions;
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
+import com.google.common.base.Preconditions; // Paper
 import java.util.HashMap;
 import java.util.Map;
 import org.bukkit.block.Block;
@@ -545,6 +546,16 @@ public class Location implements Cloneable, ConfigurationSerializable {
     public boolean isChunkLoaded() { return this.getWorld().isChunkLoaded(locToBlock(x) >> 4, locToBlock(z) >> 4); } // Paper
 
     // Paper start
+    /**
+     * Checks if a {@link Chunk} has been generated at this location.
+     *
+     * @return true if a chunk has been generated at this location
+     */
+    public boolean isGenerated() {
+        World world = this.getWorld();
+        Preconditions.checkNotNull(world, "Location has no world!");
+        return world.isChunkGenerated(locToBlock(x) >> 4, locToBlock(z) >> 4);
+    }
 
     /**
      * Sets the position of this Location and returns itself
