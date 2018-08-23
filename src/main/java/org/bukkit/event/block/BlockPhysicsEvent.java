@@ -32,6 +32,13 @@ public class BlockPhysicsEvent extends BlockEvent implements Cancellable {
     private final Block sourceBlock;
     private boolean cancel = false;
 
+    // Paper start - Legacy constructor, use #BlockPhysicsEvent(Block, BlockData, Block)
+    @Deprecated
+    public BlockPhysicsEvent(final Block block, final BlockData changed, final int sourceX, final int sourceY, final int sourceZ) {
+        this(block, changed, block.getWorld().getBlockAt(sourceX, sourceY, sourceZ));
+    }
+    // Paper end
+
     public BlockPhysicsEvent(@NotNull final Block block, @NotNull final BlockData changed) {
         this(block, changed, block);
     }
