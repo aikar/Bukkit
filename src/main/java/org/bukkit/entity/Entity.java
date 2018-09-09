@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public interface Entity extends Metadatable, CommandSender, Nameable, PersistentDataHolder {
 
-    /**
+    /*
      * Gets the entity's current position
      *
      * @return a new copy of Location containing the position of this entity

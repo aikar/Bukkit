@@ -17,7 +17,7 @@ public class PluginManagerTest {
     private static final PluginManager pm = TestServer.getInstance().getPluginManager();
 
     private final MutableObject store = new MutableObject();
-
+/* // Paper start - remove unneeded test
     @Test
     public void testAsyncSameThread() {
         final Event event = new TestEvent(true);
@@ -28,14 +28,14 @@ public class PluginManagerTest {
             return;
         }
         throw new IllegalStateException("No exception thrown");
-    }
+    }*/ // Paper end
 
     @Test
     public void testSyncSameThread() {
         final Event event = new TestEvent(false);
         pm.callEvent(event);
     }
-
+/* // Paper start - remove unneeded test
     @Test
     public void testAsyncLocked() throws InterruptedException {
         final Event event = new TestEvent(true);
@@ -129,7 +129,7 @@ public class PluginManagerTest {
         if (store.value == null) {
             throw new IllegalStateException("No exception thrown");
         }
-    }
+    } */ // Paper
 
     @Test
     public void testRemovePermissionByNameLower() {

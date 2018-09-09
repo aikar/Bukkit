@@ -462,7 +462,7 @@ public final class SimplePluginManager implements PluginManager {
      * @return true if the plugin is enabled, otherwise false
      */
     @Override
-    public boolean isPluginEnabled(@Nullable Plugin plugin) {
+    public synchronized boolean isPluginEnabled(@Nullable Plugin plugin) { // Paper - synchronize
         if ((plugin != null) && (plugins.contains(plugin))) {
             return plugin.isEnabled();
         } else {
@@ -471,7 +471,7 @@ public final class SimplePluginManager implements PluginManager {
     }
 
     @Override
-    public void enablePlugin(@NotNull final Plugin plugin) {
+    public synchronized void enablePlugin(@NotNull final Plugin plugin) { // Paper - synchronize
         if (!plugin.isEnabled()) {
             List<Command> pluginCommands = PluginCommandYamlParser.parse(plugin);
 
@@ -509,7 +509,7 @@ public final class SimplePluginManager implements PluginManager {
     }
 
     @Override
-    public void disablePlugin(@NotNull final Plugin plugin, boolean closeClassloader) {
+    public synchronized void disablePlugin(@NotNull final Plugin plugin, boolean closeClassloader) { // Paper - synchronize
         // Paper end - close Classloader on disable
         if (plugin.isEnabled()) {
             try {
@@ -579,6 +579,7 @@ public final class SimplePluginManager implements PluginManager {
             defaultPerms.get(false).clear();
         }
     }
+    private void fireEvent(Event event) { callEvent(event); } // Paper - support old method incase plugin uses reflection
 
     /**
      * Calls an event with the given details.
@@ -587,23 +588,13 @@ public final class SimplePluginManager implements PluginManager {
      */
     @Override
     public void callEvent(@NotNull Event event) {
-        if (event.isAsynchronous()) {
-            if (Thread.holdsLock(this)) {
-                throw new IllegalStateException(event.getEventName() + " cannot be triggered asynchronously from inside synchronized code.");
-            }
-            if (server.isPrimaryThread()) {
-                throw new IllegalStateException(event.getEventName() + " cannot be triggered asynchronously from primary server thread.");
-            }
-        } else {
-            if (!server.isPrimaryThread()) {
-                throw new IllegalStateException(event.getEventName() + " cannot be triggered asynchronously from another thread.");
-            }
+        // Paper - replace callEvent by merging to below method
+        if (event.isAsynchronous() && server.isPrimaryThread()) {
+            throw new IllegalStateException(event.getEventName() + " may only be triggered asynchronously.");
+        } else if (!event.isAsynchronous() && !server.isPrimaryThread()) {
+            throw new IllegalStateException(event.getEventName() + " may only be triggered synchronously.");
         }
 
-        fireEvent(event);
-    }
-
-    private void fireEvent(@NotNull Event event) {
         HandlerList handlers = event.getHandlers();
         RegisteredListener[] listeners = handlers.getRegisteredListeners();
 
