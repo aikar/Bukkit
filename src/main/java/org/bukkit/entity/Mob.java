@@ -1,12 +1,22 @@
 package org.bukkit.entity;
 
 import org.bukkit.loot.Lootable;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a Mob. Mobs are living entities with simple AI.
  */
 public interface Mob extends LivingEntity, Lootable {
+
+    // Paper start
+    /**
+     * Enables access to control the pathing of an Entity
+     * @return Pathfinding Manager for this entity
+     */
+    @NotNull
+    com.destroystokyo.paper.entity.Pathfinder getPathfinder();
+    // Paper end
 
     /**
      * Instructs this Mob to set the specified LivingEntity as its target.
