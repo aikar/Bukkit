@@ -1,4 +1,4 @@
-package org.bukkit;
+package com.destroystokyo.paper;
 
 import com.google.common.base.Preconditions;
 import java.util.Locale;
@@ -8,9 +8,9 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Represents a String based key which consists of two components - a namespace
+ * Represents a String based key pertaining to a tagged entry. Consists of two components - a namespace
  * and a key.
- *
+ * <p>
  * Namespaces may only contain lowercase alphanumeric characters, periods,
  * underscores, and hyphens.
  * <p>
@@ -18,7 +18,8 @@ import org.jetbrains.annotations.NotNull;
  * underscores, hyphens, and forward slashes.
  *
  */
-public final class NamespacedKey implements com.destroystokyo.paper.Namespaced { // Paper - implement namespaced
+// Paper - entire class, based on org.bukkit.NamespacedKey
+public final class NamespacedTag implements com.destroystokyo.paper.Namespaced {
 
     /**
      * The namespace representing all inbuilt keys.
@@ -39,12 +40,12 @@ public final class NamespacedKey implements com.destroystokyo.paper.Namespaced {
     /**
      * Create a key in a specific namespace.
      *
-     * @param namespace namespace
-     * @param key key
+     * @param namespace String representing a grouping of keys
+     * @param key Name for this specific key
      * @deprecated should never be used by plugins, for internal use only!!
      */
     @Deprecated
-    public NamespacedKey(@NotNull String namespace, @NotNull String key) {
+    public NamespacedTag(@NotNull String namespace, @NotNull String key) {
         Preconditions.checkArgument(namespace != null && VALID_NAMESPACE.matcher(namespace).matches(), "Invalid namespace. Must be [a-z0-9._-]: %s", namespace);
         Preconditions.checkArgument(key != null && VALID_KEY.matcher(key).matches(), "Invalid key. Must be [a-z0-9/._-]: %s", key);
 
@@ -52,7 +53,7 @@ public final class NamespacedKey implements com.destroystokyo.paper.Namespaced {
         this.key = key;
 
         String string = toString();
-        Preconditions.checkArgument(string.length() < 256, "NamespacedKey must be less than 256 characters", string);
+        Preconditions.checkArgument(string.length() < 256, "NamespacedTag must be less than 256 characters", string);
     }
 
     /**
@@ -67,36 +68,34 @@ public final class NamespacedKey implements com.destroystokyo.paper.Namespaced {
      * @param plugin the plugin to use for the namespace
      * @param key the key to create
      */
-    public NamespacedKey(@NotNull Plugin plugin, @NotNull String key) {
+    public NamespacedTag(@NotNull Plugin plugin, @NotNull String key) {
         Preconditions.checkArgument(plugin != null, "Plugin cannot be null");
         Preconditions.checkArgument(key != null, "Key cannot be null");
 
         this.namespace = plugin.getName().toLowerCase(Locale.ROOT);
-        this.key = key.toLowerCase(Locale.ROOT);
+        this.key = key.toLowerCase().toLowerCase(Locale.ROOT);
 
         // Check validity after normalization
         Preconditions.checkArgument(VALID_NAMESPACE.matcher(this.namespace).matches(), "Invalid namespace. Must be [a-z0-9._-]: %s", this.namespace);
         Preconditions.checkArgument(VALID_KEY.matcher(this.key).matches(), "Invalid key. Must be [a-z0-9/._-]: %s", this.key);
 
         String string = toString();
-        Preconditions.checkArgument(string.length() < 256, "NamespacedKey must be less than 256 characters (%s)", string);
+        Preconditions.checkArgument(string.length() < 256, "NamespacedTag must be less than 256 characters (%s)", string);
     }
 
     @NotNull
-    @Override // Paper
     public String getNamespace() {
         return namespace;
     }
 
     @NotNull
-    @Override // Paper
     public String getKey() {
         return key;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
+        int hash = 7;
         hash = 47 * hash + this.namespace.hashCode();
         hash = 47 * hash + this.key.hashCode();
         return hash;
@@ -110,13 +109,13 @@ public final class NamespacedKey implements com.destroystokyo.paper.Namespaced {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final NamespacedKey other = (NamespacedKey) obj;
+        final NamespacedTag other = (NamespacedTag) obj;
         return this.namespace.equals(other.namespace) && this.key.equals(other.key);
     }
 
     @Override
     public String toString() {
-        return this.namespace + ":" + this.key;
+        return "#" + this.namespace + ":" + this.key;
     }
 
     /**
@@ -126,9 +125,8 @@ public final class NamespacedKey implements com.destroystokyo.paper.Namespaced {
      * @deprecated should never be used by plugins, for internal use only!!
      */
     @Deprecated
-    @NotNull
-    public static NamespacedKey randomKey() {
-        return new NamespacedKey(BUKKIT, UUID.randomUUID().toString());
+    public static NamespacedTag randomKey() {
+        return new NamespacedTag(BUKKIT, UUID.randomUUID().toString());
     }
 
     /**
@@ -138,7 +136,7 @@ public final class NamespacedKey implements com.destroystokyo.paper.Namespaced {
      * @return new key in the Minecraft namespace
      */
     @NotNull
-    public static NamespacedKey minecraft(@NotNull String key) {
-        return new NamespacedKey(MINECRAFT, key);
+    public static NamespacedTag minecraft(@NotNull String key) {
+        return new NamespacedTag(MINECRAFT, key);
     }
 }

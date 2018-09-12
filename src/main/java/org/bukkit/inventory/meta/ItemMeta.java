@@ -388,4 +388,87 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
     @SuppressWarnings("javadoc")
     @NotNull
     ItemMeta clone();
+
+    // Paper start - Add an API for CanPlaceOn and CanDestroy NBT values
+    /**
+     * Gets set of materials what given item can destroy in {@link org.bukkit.GameMode#ADVENTURE}
+     *
+     * @return Set of materials
+     * @deprecated Minecraft does not limit this to the material enum, Use {@link #getDestroyableKeys()} as a replacement
+     */
+    @Deprecated
+    Set<org.bukkit.Material> getCanDestroy();
+
+    /**
+     * Sets set of materials what given item can destroy in {@link org.bukkit.GameMode#ADVENTURE}
+     *
+     * @param canDestroy Set of materials
+     * @deprecated Minecraft does not limit this to the material enum, Use {@link #setDestroyableKeys(Collection)} as a replacement
+     */
+    @Deprecated
+    void setCanDestroy(Set<org.bukkit.Material> canDestroy);
+
+    /**
+     * Gets set of materials where given item can be placed on in {@link org.bukkit.GameMode#ADVENTURE}
+     *
+     * @return Set of materials
+     * @deprecated Minecraft does not limit this to the material enum, Use {@link #getPlaceableKeys()} as a replacement
+     */
+    @Deprecated
+    Set<org.bukkit.Material> getCanPlaceOn();
+
+    /**
+     * Sets set of materials where given item can be placed on in {@link org.bukkit.GameMode#ADVENTURE}
+     *
+     * @param canPlaceOn Set of materials
+     * @deprecated Minecraft does not limit this to the material enum, Use {@link #setPlaceableKeys(Collection)} as a replacement
+     */
+    @Deprecated
+    void setCanPlaceOn(Set<org.bukkit.Material> canPlaceOn);
+
+    /**
+     * Gets the collection of namespaced keys that the item can destroy in {@link org.bukkit.GameMode#ADVENTURE}
+     *
+     * @return Set of {@link com.destroystokyo.paper.Namespaced}
+     */
+    @NotNull
+    Set<com.destroystokyo.paper.Namespaced> getDestroyableKeys();
+
+    /**
+     * Sets the collection of namespaced keys that the item can destroy in {@link org.bukkit.GameMode#ADVENTURE}
+     *
+     * @param canDestroy Collection of {@link com.destroystokyo.paper.Namespaced}
+     */
+    void setDestroyableKeys(@NotNull Collection<com.destroystokyo.paper.Namespaced> canDestroy);
+
+    /**
+     * Gets the collection of namespaced keys that the item can be placed on in {@link org.bukkit.GameMode#ADVENTURE}
+     *
+     * @return Set of {@link com.destroystokyo.paper.Namespaced}
+     */
+    @NotNull
+    Set<com.destroystokyo.paper.Namespaced> getPlaceableKeys();
+
+    /**
+     * Sets the set of namespaced keys that the item can be placed on in {@link org.bukkit.GameMode#ADVENTURE}
+     *
+     * @param canPlaceOn Collection of {@link com.destroystokyo.paper.Namespaced}
+     */
+    @NotNull
+    void setPlaceableKeys(@NotNull Collection<com.destroystokyo.paper.Namespaced> canPlaceOn);
+
+    /**
+     * Checks for the existence of any keys that the item can be placed on
+     *
+     * @return true if this item has placeable keys
+     */
+    boolean hasPlaceableKeys();
+
+    /**
+     * Checks for the existence of any keys that the item can destroy
+     *
+     * @return true if this item has destroyable keys
+     */
+    boolean hasDestroyableKeys();
+    // Paper end
 }
