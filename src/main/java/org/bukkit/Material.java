@@ -86,6 +86,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * An enum of all material IDs accepted by the official server and client
  */
+@SuppressWarnings({"DeprecatedIsStillUsed", "deprecation"}) // Paper
 public enum Material implements Keyed {
     //<editor-fold desc="Materials" defaultstate="collapsed">
     AIR(9648, 0),
@@ -3564,6 +3565,22 @@ public enum Material implements Keyed {
             throw new AssertionError(ex);
         }
     }
+
+    // Paper start
+
+    /**
+     * @return If the type is either AIR, CAVE_AIR or VOID_AIR
+     */
+    public boolean isEmpty() {
+        switch (this) {
+            case AIR:
+            case CAVE_AIR:
+            case VOID_AIR:
+                return true;
+        }
+        return false;
+    }
+    // Paper end
 
     /**
      * Do not use for any reason.
