@@ -1780,6 +1780,16 @@ public interface World extends PluginMessageRecipient, Metadatable {
      */
     public void setFullTime(long time);
 
+    // Paper start
+
+    /**
+     * Check if it is currently daytime in this world
+     *
+     * @return True if it is daytime
+     */
+    public boolean isDayTime();
+    // Paper end
+
     /**
      * Returns whether the world has an ongoing storm.
      *
