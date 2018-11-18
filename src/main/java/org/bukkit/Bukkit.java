@@ -1668,6 +1668,15 @@ public final class Bukkit {
     }
 
     /**
+     *
+     * @return the default no permission message used on the server
+     */
+    @NotNull
+    public static String getPermissionMessage() {
+        return server.getPermissionMessage();
+    }
+
+    /**
      * Creates a PlayerProfile for the specified uuid, with name as null
      * @param uuid UUID to create profile for
      * @return A PlayerProfile object
