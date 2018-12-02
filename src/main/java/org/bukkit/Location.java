@@ -638,6 +638,47 @@ public class Location implements Cloneable, ConfigurationSerializable {
         return centerLoc;
     }
 
+    // Paper start - Add heightmap api
+
+    /**
+     * Returns a copy of this location except with y = getWorld().getHighestBlockYAt(this.getBlockX(), this.getBlockZ())
+     * @return A copy of this location except with y = getWorld().getHighestBlockYAt(this.getBlockX(), this.getBlockZ())
+     * @throws NullPointerException if {{@link #getWorld()}} is {@code null}
+     */
+    @NotNull
+    public Location toHighestLocation() {
+        return this.toHighestLocation(HeightMap.WORLD_SURFACE);
+    }
+
+    /**
+     * Returns a copy of this location except with y = getWorld().getHighestBlockYAt(this.getBlockX(), this.getBlockZ(), heightmap)
+     * @param heightmap The heightmap to use for finding the highest y location.
+     * @return A copy of this location except with y = getWorld().getHighestBlockYAt(this.getBlockX(), this.getBlockZ(), heightmap)
+     * @throws NullPointerException if {{@link #getWorld()}} is {@code null}
+     * @throws UnsupportedOperationException if {@link World#getHighestBlockYAt(int, int, com.destroystokyo.paper.HeightmapType)} does not support the specified heightmap
+     * @deprecated Use {@link org.bukkit.Location#toHighestLocation(HeightMap)}
+     */
+    @NotNull
+    @Deprecated
+    public Location toHighestLocation(@NotNull final com.destroystokyo.paper.HeightmapType heightmap) {
+        final Location ret = this.clone();
+        ret.setY(this.getWorld().getHighestBlockYAt(this, heightmap));
+        return ret;
+    }
+
+    /**
+     * Returns a copy of this location except with y = getWorld().getHighestBlockYAt(this.getBlockX(), this.getBlockZ(), heightMap)
+     * @param heightMap The heightmap to use for finding the highest y location.
+     * @return A copy of this location except with y = getWorld().getHighestBlockYAt(this.getBlockX(), this.getBlockZ(), heightMap)
+     */
+    @NotNull
+    public Location toHighestLocation(@NotNull final HeightMap heightMap) {
+        final Location ret = this.clone();
+        ret.setY(this.getWorld().getHighestBlockYAt(this, heightMap));
+        return ret;
+    }
+    // Paper end
+
     /**
      * Creates explosion at this location with given power
      *

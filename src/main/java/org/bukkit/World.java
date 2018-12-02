@@ -160,6 +160,87 @@ public interface World extends PluginMessageRecipient, Metadatable {
     @NotNull
     public Block getHighestBlockAt(@NotNull Location location);
 
+    // Paper start - Add heightmap API
+    /**
+     * Returns the highest block's y-coordinate at the specified block coordinates that match the specified heightmap's conditions.
+     * <p>
+     * <b>implNote:</b> Implementations are recommended to use an iterative search as a fallback before resorting to
+     * throwing an {@code UnsupportedOperationException}.
+     * </p>
+     *
+     * @param x The block's x-coordinate.
+     * @param z The block's z-coordinate.
+     * @param heightmap The specified heightmap to use. See {@link com.destroystokyo.paper.HeightmapType}
+     * @return The highest block's y-coordinate at (x, z) that matches the specified heightmap's conditions.
+     * @throws UnsupportedOperationException If the heightmap type is not supported.
+     * @deprecated Upstream has added support for this, use {@link World#getHighestBlockYAt(int, int, HeightMap)}
+     *
+     * @see com.destroystokyo.paper.HeightmapType
+     */
+    @Deprecated
+    public int getHighestBlockYAt(int x, int z, @NotNull com.destroystokyo.paper.HeightmapType heightmap) throws UnsupportedOperationException;
+
+    /**
+     * Returns the highest block's y-coordinate at the specified block coordinates that match the specified heightmap's conditions.
+     * Note that the y-coordinate of the specified location is ignored.
+     * <p>
+     * <b>implNote:</b> Implementations are recommended to use an iterative search as a fallback before resorting to
+     * throwing an {@code UnsupportedOperationException}.
+     * </p>
+     *
+     * @param location The specified block coordinates.
+     * @param heightmap The specified heightmap to use. See {@link com.destroystokyo.paper.HeightmapType}
+     * @return The highest block's y-coordinate at {@code location} that matches the specified heightmap's conditions.
+     * @throws UnsupportedOperationException If the heightmap type is not supported.
+     * @deprecated Upstream has added support for this, use {@link World#getHighestBlockYAt(Location, HeightMap)}
+     * @see com.destroystokyo.paper.HeightmapType
+     */
+    @Deprecated
+    default int getHighestBlockYAt(@NotNull Location location, @NotNull com.destroystokyo.paper.HeightmapType heightmap) throws UnsupportedOperationException {
+        return this.getHighestBlockYAt(location.getBlockX(), location.getBlockZ(), heightmap);
+    }
+
+    /**
+     * Returns the highest {@link Block} at the specified block coordinates that match the specified heightmap's conditions.
+     * <p>
+     * <b>implNote:</b> Implementations are recommended to use an iterative search as a fallback before resorting to
+     * throwing an {@code UnsupportedOperationException}.
+     * </p>
+     * @param x The block's x-coordinate.
+     * @param z The block's z-coordinate.
+     * @param heightmap The specified heightmap to use. See {@link com.destroystokyo.paper.HeightmapType}
+     * @return The highest {@link Block} at (x, z) that matches the specified heightmap's conditions.
+     * @throws UnsupportedOperationException If the heightmap type is not supported.
+     * @deprecated Upstream has added support for this, use {@link World#getHighestBlockAt(int, int, HeightMap)}
+     * @see com.destroystokyo.paper.HeightmapType
+     */
+    @Deprecated
+    @NotNull
+    default Block getHighestBlockAt(int x, int z, @NotNull com.destroystokyo.paper.HeightmapType heightmap) throws UnsupportedOperationException {
+        return this.getBlockAt(x, this.getHighestBlockYAt(x, z, heightmap), z);
+    }
+
+    /**
+     * Returns the highest {@link Block} at the specified block coordinates that match the specified heightmap's conditions.
+     * Note that the y-coordinate of the specified location is ignored.
+     * <p>
+     * <b>implNote:</b> Implementations are recommended to use an iterative search as a fallback before resorting to
+     * throwing an {@code UnsupportedOperationException}.
+     * </p>
+     * @param location The specified block coordinates.
+     * @param heightmap The specified heightmap to use. See {@link com.destroystokyo.paper.HeightmapType}
+     * @return The highest {@link Block} at {@code location} that matches the specified heightmap's conditions.
+     * @throws UnsupportedOperationException If the heightmap type is not supported.
+     * @deprecated Upstream has added support for this, use {@link World#getHighestBlockAt(Location, HeightMap)}
+     * @see com.destroystokyo.paper.HeightmapType
+     */
+    @Deprecated
+    @NotNull
+    default Block getHighestBlockAt(@NotNull Location location, @NotNull com.destroystokyo.paper.HeightmapType heightmap) throws UnsupportedOperationException {
+        return this.getHighestBlockAt(location.getBlockX(), location.getBlockZ(), heightmap);
+    }
+    // Paper end
+
     /**
      * Gets the highest coordinate corresponding to the {@link HeightMap} at the
      * given coordinates.
