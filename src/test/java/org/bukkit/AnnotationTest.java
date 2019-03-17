@@ -40,7 +40,17 @@ public class AnnotationTest {
         "org/bukkit/util/io/Wrapper",
         "org/bukkit/plugin/java/PluginClassLoader",
         // Generic functional interface
-        "org/bukkit/util/Consumer"
+        "org/bukkit/util/Consumer",
+        // Paper start
+        // Timings history is broken in terms of nullability due to guavas Function defining that the param is NonNull
+        "co/aikar/timings/TimingHistory$2",
+        "co/aikar/timings/TimingHistory$2$1",
+        "co/aikar/timings/TimingHistory$2$1$1",
+        "co/aikar/timings/TimingHistory$2$1$2",
+        "co/aikar/timings/TimingHistory$3",
+        "co/aikar/timings/TimingHistory$4",
+        "co/aikar/timings/TimingHistoryEntry$1"
+        // Paper end
     };
 
     @Test
