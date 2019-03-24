@@ -3,6 +3,7 @@ package org.bukkit.inventory;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.Server;
+import org.bukkit.UndefinedNullability;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -25,7 +26,7 @@ public interface ItemFactory {
      * @return a new ItemMeta that could be applied to an item stack of the
      *     specified material
      */
-    @Nullable
+    @UndefinedNullability // Paper
     ItemMeta getItemMeta(@NotNull final Material material);
 
     /**
