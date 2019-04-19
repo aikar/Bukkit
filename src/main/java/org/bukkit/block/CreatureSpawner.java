@@ -199,4 +199,18 @@ public interface CreatureSpawner extends TileState {
      * @see #getSpawnRange()
      */
     public void setSpawnRange(int spawnRange);
+
+    // Paper start
+    /**
+     * Check if spawner is activated (a player is close enough)
+     *
+     * @return True if a player is close enough to activate it
+     */
+    public boolean isActivated();
+
+    /**
+     * Resets the spawn delay timer within the min/max range
+     */
+    public void resetTimer();
+    // Paper end
 }
