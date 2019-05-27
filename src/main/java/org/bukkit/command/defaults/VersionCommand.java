@@ -1,5 +1,6 @@
 package org.bukkit.command.defaults;
 
+import com.destroystokyo.paper.util.VersionFetcher; // Paper - version supplier
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
 import com.google.common.io.Resources;
@@ -26,6 +27,15 @@ import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 
 public class VersionCommand extends BukkitCommand {
+    private VersionFetcher versionFetcher;
+    private VersionFetcher getVersionFetcher() { // lazy load because unsafe isn't available at command registration
+        if (versionFetcher == null) {
+            versionFetcher = Bukkit.getUnsafe().getVersionFetcher();
+        }
+
+        return versionFetcher;
+    }
+
     public VersionCommand(@NotNull String name) {
         super(name);
 
@@ -153,18 +163,18 @@ public class VersionCommand extends BukkitCommand {
 
     private void sendVersion(@NotNull CommandSender sender) {
         if (hasVersion) {
-            if (System.currentTimeMillis() - lastCheck > 21600000) {
+            if (System.currentTimeMillis() - lastCheck > getVersionFetcher().getCacheTime()) { // Paper - use version supplier
                 lastCheck = System.currentTimeMillis();
                 hasVersion = false;
             } else {
-                sender.sendMessage(versionMessage);
+                sendMessages(versionMessage, sender); // Paper - allow \n for multiple messages
                 return;
             }
         }
         versionLock.lock();
         try {
             if (hasVersion) {
-                sender.sendMessage(versionMessage);
+                sendMessages(versionMessage, sender); // Paper - allow \n for multiple messages
                 return;
             }
             versionWaiters.add(sender);
@@ -186,7 +196,12 @@ public class VersionCommand extends BukkitCommand {
 
     private void obtainVersion() {
         String version = Bukkit.getVersion();
-        if (version == null) version = "Custom";
+        // Paper start
+        if (version.startsWith("null")) { // running from ide?
+            setVersionMessage("Unknown version, custom build?");
+            return;
+        }
+        /*
         if (version.startsWith("git-Spigot-")) {
             String[] parts = version.substring("git-Spigot-".length()).split("-");
             int cbVersions = getDistance("craftbukkit", parts[1].substring(0, parts[1].indexOf(' ')));
@@ -216,6 +231,9 @@ public class VersionCommand extends BukkitCommand {
         } else {
             setVersionMessage("Unknown version, custom build?");
         }
+         */
+        setVersionMessage(getVersionFetcher().getVersionMessage(version));
+        // Paper end
     }
 
     private void setVersionMessage(@NotNull String msg) {
@@ -225,14 +243,28 @@ public class VersionCommand extends BukkitCommand {
         try {
             hasVersion = true;
             versionTaskStarted = false;
+            // Paper - allow \n for multiple messages
+            String[] messages = versionMessage.split("\n");
             for (CommandSender sender : versionWaiters) {
-                sender.sendMessage(versionMessage);
+                for (String message : messages) {
+                    sender.sendMessage(message);
+                }
+                // Paper end
             }
             versionWaiters.clear();
         } finally {
             versionLock.unlock();
         }
     }
+
+    // Paper start
+    private void sendMessages(String toSplit, CommandSender target) {
+        String[] messages = toSplit.split("\n");
+        for (String message : messages) {
+            target.sendMessage(message);
+        }
+    }
+    // Paper end
 
     private static int getDistance(@NotNull String repo, @NotNull String hash) {
         try {
