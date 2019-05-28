@@ -1,6 +1,7 @@
 package org.bukkit.block;
 
 import java.util.Collection;
+
 import org.bukkit.Chunk;
 import org.bukkit.FluidCollisionMode;
 import org.bukkit.Location;
@@ -549,4 +550,16 @@ public interface Block extends Metadatable {
      */
     @NotNull
     BoundingBox getBoundingBox();
+
+    // Paper start
+    /**
+     * Gets the {@link com.destroystokyo.paper.block.BlockSoundGroup} for this block.
+     * <p>
+     * This object contains the block, step, place, hit, and fall sounds.
+     *
+     * @return the sound group for this block
+     */
+    @NotNull
+    com.destroystokyo.paper.block.BlockSoundGroup getSoundGroup();
+    // Paper end
 }
