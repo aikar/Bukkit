@@ -1,6 +1,8 @@
 package org.bukkit.event.entity;
 
 import java.util.List;
+
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -49,6 +51,23 @@ public class PlayerDeathEvent extends EntityDeathEvent {
     public List<ItemStack> getItemsToKeep() {
         return itemsToKeep;
     }
+
+    private boolean doExpDrop;
+
+    /**
+     * @return should experience be dropped from this death
+     */
+    public boolean shouldDropExperience() {
+        return doExpDrop;
+    }
+
+    /**
+     * @param doExpDrop sets if experience should be dropped from this death
+     */
+    public void setShouldDropExperience(boolean doExpDrop) {
+        this.doExpDrop = doExpDrop;
+    }
+
     // Paper end
 
     public PlayerDeathEvent(@NotNull final Player player, @NotNull final List<ItemStack> drops, final int droppedExp, @Nullable final String deathMessage) {
@@ -60,11 +79,17 @@ public class PlayerDeathEvent extends EntityDeathEvent {
     }
 
     public PlayerDeathEvent(@NotNull final Player player, @NotNull final List<ItemStack> drops, final int droppedExp, final int newExp, final int newTotalExp, final int newLevel, @Nullable final String deathMessage) {
+        // Paper start
+        this(player, drops, droppedExp, newExp, newTotalExp, newLevel, deathMessage, player.getGameMode() != GameMode.SPECTATOR);
+    }
+    public PlayerDeathEvent(@NotNull final Player player, @NotNull final List<ItemStack> drops, final int droppedExp, final int newExp, final int newTotalExp, final int newLevel, @Nullable final String deathMessage, boolean doExpDrop) {
+        // Paper end
         super(player, drops, droppedExp);
         this.newExp = newExp;
         this.newTotalExp = newTotalExp;
         this.newLevel = newLevel;
         this.deathMessage = deathMessage;
+        this.doExpDrop = doExpDrop; // Paper
     }
 
     @NotNull
