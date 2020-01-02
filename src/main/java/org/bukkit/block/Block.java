@@ -469,6 +469,18 @@ public interface Block extends Metadatable {
      */
     boolean breakNaturally(@Nullable ItemStack tool);
 
+    // Paper start
+    /**
+     * Breaks the block and spawns items as if a player had digged it with a
+     * specific tool
+     *
+     * @param tool The tool or item in hand used for digging
+     * @param triggerEffect Play the block break particle effect and sound
+     * @return true if the block was destroyed
+     */
+    boolean breakNaturally(@NotNull ItemStack tool, boolean triggerEffect);
+    // Paper end
+
     /**
      * Simulate bone meal application to this block (if possible).
      *
