@@ -2,6 +2,7 @@ package org.bukkit.entity;
 
 import java.net.InetSocketAddress;
 import java.util.UUID;
+import com.destroystokyo.paper.ClientOption; // Paper
 import com.destroystokyo.paper.Title; // Paper
 import com.destroystokyo.paper.profile.PlayerProfile; // Paper
 import java.util.Date; // Paper
@@ -1779,6 +1780,12 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
      * Reset the cooldown counter to 0, effectively starting the cooldown period.
      */
     void resetCooldown();
+
+    /**
+     * @return the client option value of the player
+     */
+    @NotNull
+    <T> T getClientOption(@NotNull ClientOption<T> option);
     // Paper end
 
     // Spigot start
