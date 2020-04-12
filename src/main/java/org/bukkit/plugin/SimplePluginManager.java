@@ -591,7 +591,7 @@ public final class SimplePluginManager implements PluginManager {
         // Paper - replace callEvent by merging to below method
         if (event.isAsynchronous() && server.isPrimaryThread()) {
             throw new IllegalStateException(event.getEventName() + " may only be triggered asynchronously.");
-        } else if (!event.isAsynchronous() && !server.isPrimaryThread()) {
+        } else if (!event.isAsynchronous() && !server.isPrimaryThread() && !server.isStopping() ) {
             throw new IllegalStateException(event.getEventName() + " may only be triggered synchronously.");
         }
 
