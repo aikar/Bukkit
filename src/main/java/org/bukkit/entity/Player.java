@@ -1786,6 +1786,19 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
      */
     @NotNull
     <T> T getClientOption(@NotNull ClientOption<T> option);
+
+    /**
+     * Boost a Player that's {@link #isGliding()} using a {@link Firework}.
+     * If the creation of the entity is cancelled, no boosting is done.
+     * This method does not fire {@link com.destroystokyo.paper.event.player.PlayerElytraBoostEvent}.
+     *
+     * @param firework The {@link Material#FIREWORK_ROCKET} to boost the player with
+     * @return The {@link Firework} boosting the Player or null if the spawning of the entity was cancelled
+     * @throws IllegalArgumentException if {@link #isGliding()} is false
+     * or if the {@code firework} isn't a {@link Material#FIREWORK_ROCKET}
+     */
+    @Nullable
+    Firework boostElytra(@NotNull ItemStack firework);
     // Paper end
 
     // Spigot start
