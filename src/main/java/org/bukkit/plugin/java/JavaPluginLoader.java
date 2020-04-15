@@ -52,6 +52,8 @@ public final class JavaPluginLoader implements PluginLoader {
     final Server server;
     private final Pattern[] fileFilters = new Pattern[]{Pattern.compile("\\.jar$")};
     private final Map<String, Class<?>> classes = new ConcurrentHashMap<String, Class<?>>();
+    private final Map<String, java.util.concurrent.locks.ReentrantReadWriteLock> classLoadLock = new java.util.HashMap<String, java.util.concurrent.locks.ReentrantReadWriteLock>(); // Paper
+    private final Map<String, Integer> classLoadLockCount = new java.util.HashMap<String, Integer>(); // Paper
     private final List<PluginClassLoader> loaders = new CopyOnWriteArrayList<PluginClassLoader>();
 
     /**
@@ -191,7 +193,19 @@ public final class JavaPluginLoader implements PluginLoader {
 
     @Nullable
     Class<?> getClassByName(final String name) {
+        // Paper start - make MT safe
         Class<?> cachedClass = classes.get(name);
+        if (cachedClass != null) {
+            return cachedClass;
+        }
+        java.util.concurrent.locks.ReentrantReadWriteLock lock;
+        synchronized (classLoadLock) {
+            lock = classLoadLock.computeIfAbsent(name, (x) -> new java.util.concurrent.locks.ReentrantReadWriteLock());
+            classLoadLockCount.compute(name, (x, prev) -> prev != null ? prev + 1 : 1);
+        }
+        lock.writeLock().lock();try {
+        cachedClass = classes.get(name);
+        // Paper end
 
         if (cachedClass != null) {
             return cachedClass;
@@ -205,6 +219,19 @@ public final class JavaPluginLoader implements PluginLoader {
                 }
             }
         }
+        // Paper start - make MT safe
+        } finally {
+            synchronized (classLoadLock) {
+                lock.writeLock().unlock();
+                if (classLoadLockCount.get(name) == 1) {
+                    classLoadLock.remove(name);
+                    classLoadLockCount.remove(name);
+                } else {
+                    classLoadLockCount.compute(name, (x, prev) -> prev - 1);
+                }
+            }
+        }
+        // Paper end
         return null;
     }
 
