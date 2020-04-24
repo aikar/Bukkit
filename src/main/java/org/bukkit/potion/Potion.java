@@ -267,7 +267,7 @@ public class Potion {
         }
         ItemStack itemStack = new ItemStack(material, amount);
         PotionMeta meta = (PotionMeta) itemStack.getItemMeta();
-        meta.setBasePotionData(new PotionData(type, level == 2, extended));
+        meta.setBasePotionData(new PotionData(type, extended, level == 2)); // Paper - fix swapped values
         itemStack.setItemMeta(meta);
         return itemStack;
     }
