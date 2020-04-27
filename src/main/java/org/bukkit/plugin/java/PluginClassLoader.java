@@ -108,7 +108,7 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
 
         if (result == null) {
             if (checkGlobal) {
-                result = loader.getClassByName(name);
+                result = loader.getClassByName(name, this); // Paper - prioritize self
 
                 if (result != null) {
                     PluginDescriptionFile provider = ((PluginClassLoader) result.getClassLoader()).description;
