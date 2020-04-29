@@ -227,6 +227,22 @@ public abstract class ChunkGenerator {
         return false;
     }
 
+    // Paper start
+    /**
+     * Create a ChunkData for use in a generator, that is populated by the vanilla generator for that world
+     *
+     * @param world the world to create the ChunkData for
+     * @param x the x coordinate of the chunk
+     * @param z the z coordinate of the chunk
+     * @return a new ChunkData for the world
+     *
+     */
+    @NotNull
+    public ChunkData createVanillaChunkData(@NotNull World world, int x, int z) {
+        return Bukkit.getServer().createVanillaChunkData(world, x, z);
+    }
+    // Paper end
+
     /**
      * Data for a Chunk.
      */
