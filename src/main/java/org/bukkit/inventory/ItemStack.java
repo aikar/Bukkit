@@ -614,6 +614,29 @@ public class ItemStack implements Cloneable, ConfigurationSerializable {
     }
 
     /**
+     * Deserializes this itemstack from raw NBT bytes. NBT is safer for data migrations as it will
+     * use the built in data converter instead of bukkits dangerous serialization system.
+     *
+     * This expects that the DataVersion was stored on the root of the Compound, as saved from
+     * the {@link #serializeAsBytes()} API returned.
+     * @return ItemStack migrated to this version of Minecraft if needed.
+     */
+    @NotNull
+    public static ItemStack deserializeBytes(@NotNull byte[] bytes) {
+        return org.bukkit.Bukkit.getUnsafe().deserializeItem(bytes);
+    }
+
+    /**
+     * Serializes this itemstack to raw bytes in NBT. NBT is safer for data migrations as it will
+     * use the built in data converter instead of bukkits dangerous serialization system.
+     * @return bytes representing this item in NBT.
+     */
+    @NotNull
+    public byte[] serializeAsBytes() {
+        return org.bukkit.Bukkit.getUnsafe().serializeItem(this);
+    }
+
+    /**
      * Gets the Display name as seen in the Client.
      * Currently the server only supports the English language. To override this,
      * You must replace the language file embedded in the server jar.
