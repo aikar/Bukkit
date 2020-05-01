@@ -118,6 +118,18 @@ public final class Bukkit {
         return server.getBukkitVersion();
     }
 
+    // Paper start - expose game version
+    /**
+     * Gets the version of game this server implements
+     *
+     * @return version of game
+     */
+    @NotNull
+    public static String getMinecraftVersion() {
+        return server.getMinecraftVersion();
+    }
+    // Paper end
+
     /**
      * Gets a view of all currently logged in players. This {@linkplain
      * Collections#unmodifiableCollection(Collection) view} is a reused
