@@ -144,6 +144,14 @@ public interface AbstractArrow extends Projectile {
 
     // Paper start
     /**
+     * Gets the ItemStack for this arrow.
+     *
+     * @return The ItemStack, as if a player picked up the arrow
+     */
+    @NotNull
+    org.bukkit.inventory.ItemStack getItemStack();
+
+    /**
      * Gets the {@link PickupRule} for this arrow.
      *
      * <p>This is generally {@link PickupRule#ALLOWED} only if the arrow was
