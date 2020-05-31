@@ -209,4 +209,16 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
         javaPlugin.logger = this.logger; // Paper - set logger
         javaPlugin.init(loader, loader.server, description, dataFolder, file, this);
     }
+
+    // Paper start
+    @Override
+    public String toString() {
+        JavaPlugin currPlugin = plugin != null ? plugin : pluginInit;
+        return "PluginClassLoader{" +
+                   "plugin=" + currPlugin +
+                   ", pluginEnabled=" + (currPlugin == null ? "uninitialized" : currPlugin.isEnabled()) +
+                   ", url=" + file +
+                   '}';
+    }
+    // Paper end
 }
