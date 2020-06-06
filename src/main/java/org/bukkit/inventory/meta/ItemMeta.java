@@ -42,6 +42,18 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
     @NotNull
     String getDisplayName();
 
+    // Paper start
+    /**
+     * Gets the display name that is set.
+     * <p>
+     * Plugins should check that hasDisplayName() returns <code>true</code>
+     * before calling this method.
+     *
+     * @return the display name that is set
+     */
+    @NotNull
+    net.md_5.bungee.api.chat.BaseComponent[] getDisplayNameComponent();
+    // Paper end
     /**
      * Sets the display name.
      *
@@ -49,6 +61,14 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
      */
     void setDisplayName(@Nullable String name);
 
+    // Paper start
+    /**
+     * Sets the display name.
+     *
+     * @param component the name component to set
+     */
+    void setDisplayNameComponent(@Nullable net.md_5.bungee.api.chat.BaseComponent[] component);
+    // Paper end
     /**
      * Checks for existence of a localized name.
      *
@@ -93,12 +113,31 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
     List<String> getLore();
 
     /**
+     * Gets the lore that is set.
+     * <p>
+     * Plugins should check if hasLore() returns <code>true</code> before
+     * calling this method.
+     *
+     * @return a list of lore that is set
+     */
+    @Nullable
+    List<net.md_5.bungee.api.chat.BaseComponent[]> getLoreComponents();
+
+    /**
      * Sets the lore for this item.
      * Removes lore when given null.
      *
      * @param lore the lore that will be set
      */
     void setLore(@Nullable List<String> lore);
+
+    /**
+     * Sets the lore for this item.
+     * Removes lore when given null.
+     *
+     * @param lore the lore that will be set
+     */
+    void setLoreComponents(@Nullable List<net.md_5.bungee.api.chat.BaseComponent[]> lore);
 
     /**
      * Checks for existence of custom model data.
