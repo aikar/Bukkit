@@ -1,5 +1,6 @@
 package org.bukkit.event.inventory;
 
+import com.destroystokyo.paper.event.inventory.PrepareResultEvent;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.InventoryView;
@@ -10,14 +11,16 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Called when an item is put in a slot for repair by an anvil.
  */
-public class PrepareAnvilEvent extends InventoryEvent {
+// Paper start - extend PrepareResultEvent
+public class PrepareAnvilEvent extends PrepareResultEvent {
 
-    private static final HandlerList handlers = new HandlerList();
-    private ItemStack result;
+    //private static final HandlerList handlers = new HandlerList();
+    //private ItemStack result;
 
     public PrepareAnvilEvent(@NotNull InventoryView inventory, @Nullable ItemStack result) {
-        super(inventory);
-        this.result = result;
+        super(inventory, result);
+        //this.result = result;
+        // Paper end
     }
 
     @NotNull
@@ -33,13 +36,14 @@ public class PrepareAnvilEvent extends InventoryEvent {
      */
     @Nullable
     public ItemStack getResult() {
-        return result;
+        return super.getResult(); // Paper
     }
 
     public void setResult(@Nullable ItemStack result) {
-        this.result = result;
+        super.setResult(result); // Paper
     }
 
+    /* // Paper - comment out
     @NotNull
     @Override
     public HandlerList getHandlers() {
@@ -50,4 +54,5 @@ public class PrepareAnvilEvent extends InventoryEvent {
     public static HandlerList getHandlerList() {
         return handlers;
     }
+    */ // Paper
 }
