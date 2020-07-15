@@ -766,6 +766,13 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
     @Nullable
     ItemStack getActiveItem();
 
+    // Paper start
+    /**
+     * Interrupts any ongoing active "usage" or consumption or an item.
+     */
+    void clearActiveItem();
+    // Paper end
+
     /**
      * Get's remaining time a player needs to keep hands raised with an item to finish using it.
      * @return Remaining ticks to use the item
