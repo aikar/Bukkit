@@ -363,6 +363,7 @@ public enum ChatColor {
         return new String(b);
     }
 
+    private static final Pattern HEX_COLOR_PATTERN = Pattern.compile(COLOR_CHAR + "x(?>" + COLOR_CHAR + "[0-9a-f]){6}", Pattern.CASE_INSENSITIVE); // Paper - Support hex colors in getLastColors
     /**
      * Gets the ChatColors used at the end of the given input string.
      *
@@ -380,6 +381,15 @@ public enum ChatColor {
         for (int index = length - 1; index > -1; index--) {
             char section = input.charAt(index);
             if (section == COLOR_CHAR && index < length - 1) {
+                // Paper start - Support hex colors
+                if (index > 11 && input.charAt(index - 12) == COLOR_CHAR && (input.charAt(index - 11) == 'x' || input.charAt(index - 11) == 'X')) {
+                    String color = input.substring(index - 12, index + 2);
+                    if (HEX_COLOR_PATTERN.matcher(color).matches()) {
+                        result = color + result;
+                        break;
+                    }
+                }
+                // Paper end
                 char c = input.charAt(index + 1);
                 ChatColor color = getByChar(c);
 
