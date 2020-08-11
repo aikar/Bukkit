@@ -3580,6 +3580,16 @@ public enum Material implements Keyed {
         }
         return false;
     }
+
+    /**
+     * Return the translation key for the Material, so the client can translate it into the active
+     * locale when using a TranslatableComponent.
+     * @return the translation key
+     */
+    @NotNull
+    public String getTranslationKey() {
+        return Bukkit.getUnsafe().getTranslationKey(this);
+    }
     // Paper end
 
     /**

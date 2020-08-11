@@ -573,5 +573,13 @@ public interface Block extends Metadatable {
      */
     @NotNull
     com.destroystokyo.paper.block.BlockSoundGroup getSoundGroup();
+
+    /**
+     * Return the translation key for the Block, so the client can translate it into the active
+     * locale when using a TranslatableComponent.
+     * @return the translation key
+     */
+    @NotNull
+    String getTranslationKey();
     // Paper end
 }

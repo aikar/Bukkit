@@ -414,4 +414,15 @@ public enum EntityType implements Keyed {
     public boolean isAlive() {
         return living;
     }
+
+    /**
+     * Return the translation key for the EntityType, so the client can translate it into the active
+     * locale when using a TranslatableComponent.<br>
+     * This is <code>null</code>, when the EntityType isn't known to NMS (custom entities)
+     * @return the translation key
+     */
+    @Nullable
+    String getTranslationKey() {
+        return org.bukkit.Bukkit.getUnsafe().getTranslationKey(this);
+    }
 }

@@ -94,5 +94,27 @@ public interface UnsafeValues {
     byte[] serializeItem(ItemStack item);
 
     ItemStack deserializeItem(byte[] data);
+
+    /**
+     * Return the translation key for the Material, so the client can translate it into the active
+     * locale when using a TranslatableComponent.
+     * @return the translation key
+     */
+    String getTranslationKey(Material mat);
+
+    /**
+     * Return the translation key for the Block, so the client can translate it into the active
+     * locale when using a TranslatableComponent.
+     * @return the translation key
+     */
+    String getTranslationKey(org.bukkit.block.Block block);
+
+    /**
+     * Return the translation key for the EntityType, so the client can translate it into the active
+     * locale when using a TranslatableComponent.<br>
+     * This is <code>null</code>, when the EntityType isn't known to NMS (custom entities)
+     * @return the translation key
+     */
+    String getTranslationKey(org.bukkit.entity.EntityType type);
     // Paper end
 }
