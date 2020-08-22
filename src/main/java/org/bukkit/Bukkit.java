@@ -171,6 +171,17 @@ public final class Bukkit {
         return server.getMaxPlayers();
     }
 
+    // Paper start
+    /**
+     * Set the maximum amount of players which can login to this server.
+     *
+     * @param maxPlayers the amount of players this server allows
+     */
+    public static void setMaxPlayers(int maxPlayers) {
+        server.setMaxPlayers(maxPlayers);
+    }
+    // Paper end
+
     /**
      * Get the game port that the server runs on.
      *
