@@ -70,6 +70,12 @@ public interface World extends PluginMessageRecipient, Metadatable {
      * @return The amount of Players in this world
      */
     int getPlayerCount();
+
+    /**
+     * @return the current moon phase at the current time in the world
+     */
+    @NotNull
+    io.papermc.paper.world.MoonPhase getMoonPhase();
     // Paper end
 
     /**
