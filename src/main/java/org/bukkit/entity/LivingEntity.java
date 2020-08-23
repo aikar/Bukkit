@@ -805,5 +805,28 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
      * @param jumping entity jump state
      */
     void setJumping(boolean jumping);
+
+    /**
+     * Plays pickup item animation towards this entity.
+     * <p>
+     * <b>This will remove the item on the client.</b>
+     * <p>
+     * Quantity is inferred to be that of the {@link Item}.
+     *
+     * @param item item to pickup
+     */
+    default void playPickupItemAnimation(@NotNull Item item) {
+        playPickupItemAnimation(item, item.getItemStack().getAmount());
+    }
+
+    /**
+     * Plays pickup item animation towards this entity.
+     * <p>
+     * <b>This will remove the item on the client.</b>
+     *
+     * @param item item to pickup
+     * @param quantity quantity of item
+     */
+    void playPickupItemAnimation(@NotNull Item item, int quantity);
     // Paper end
 }
