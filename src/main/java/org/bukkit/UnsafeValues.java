@@ -116,5 +116,13 @@ public interface UnsafeValues {
      * @return the translation key
      */
     String getTranslationKey(org.bukkit.entity.EntityType type);
+
+    /**
+     * Creates and returns the next EntityId available.
+     * <p>
+     * Use this when sending custom packets, so that there are no collisions on the client or server.
+     */
+    public int nextEntityId();
+
     // Paper end
 }
