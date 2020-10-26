@@ -581,5 +581,16 @@ public interface Block extends Metadatable {
      */
     @NotNull
     String getTranslationKey();
+
+    /**
+     * Gets the speed at which this block will be destroyed by a given {@link ItemStack}
+     *
+     * <p>Default value is 1.0</p>
+     *
+     * @param itemStack {@link ItemStack} used to mine this Block
+     * @return the speed that this Block will be mined by the given {@link ItemStack}
+     */
+    @NotNull
+    float getDestroySpeed(@NotNull ItemStack itemStack);
     // Paper end
 }
