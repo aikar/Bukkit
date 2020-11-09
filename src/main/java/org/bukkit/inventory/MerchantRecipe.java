@@ -28,6 +28,7 @@ public class MerchantRecipe implements Recipe {
     private boolean experienceReward;
     private int villagerExperience;
     private float priceMultiplier;
+    private boolean ignoreDiscounts; // Paper
 
     public MerchantRecipe(@NotNull ItemStack result, int maxUses) {
         this(result, 0, maxUses, false);
@@ -38,6 +39,12 @@ public class MerchantRecipe implements Recipe {
     }
 
     public MerchantRecipe(@NotNull ItemStack result, int uses, int maxUses, boolean experienceReward, int villagerExperience, float priceMultiplier) {
+        // Paper start - add ignoreDiscounts param
+        this(result, uses, maxUses, experienceReward, villagerExperience, priceMultiplier, false);
+    }
+    public MerchantRecipe(@NotNull ItemStack result, int uses, int maxUses, boolean experienceReward, int villagerExperience, float priceMultiplier, boolean ignoreDiscounts) {
+        this.ignoreDiscounts = ignoreDiscounts;
+        // Paper end
         this.result = result;
         this.uses = uses;
         this.maxUses = maxUses;
@@ -172,4 +179,20 @@ public class MerchantRecipe implements Recipe {
     public void setPriceMultiplier(float priceMultiplier) {
         this.priceMultiplier = priceMultiplier;
     }
+
+    // Paper start
+    /**
+     * @return Whether all discounts on this trade should be ignored.
+     */
+    public boolean shouldIgnoreDiscounts() {
+        return ignoreDiscounts;
+    }
+
+    /**
+     * @param ignoreDiscounts Whether all discounts on this trade should be ignored.
+     */
+    public void setIgnoreDiscounts(boolean ignoreDiscounts) {
+        this.ignoreDiscounts = ignoreDiscounts;
+    }
+    // Paper end
 }
