@@ -52,9 +52,15 @@ public class PluginsCommand extends BukkitCommand {
             }
 
             Plugin plugin = entry.getValue();
-            
+
             pluginList.append(plugin.isEnabled() ? ChatColor.GREEN : ChatColor.RED);
-            pluginList.append(plugin.getDescription().getName());
+            // Paper start - Add an asterisk to legacy plugins (so admins are aware)
+            String pluginName = plugin.getDescription().getName();
+            if (org.bukkit.UnsafeValues.isLegacyPlugin(plugin)) {
+                pluginName += "*";
+            }
+            pluginList.append(pluginName);
+            // Paper end
 
             if (plugin.getDescription().getProvides().size() > 0) {
                 pluginList.append(" (").append(String.join(", ", plugin.getDescription().getProvides())).append(")");
