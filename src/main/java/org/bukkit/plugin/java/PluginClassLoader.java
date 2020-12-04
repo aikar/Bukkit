@@ -56,7 +56,18 @@ public final class PluginClassLoader extends URLClassLoader { // Spigot
         this.description = description;
         this.dataFolder = dataFolder;
         this.file = file;
-        this.jar = new JarFile(file);
+        // Paper - enable multi-release jars for Java 9+
+        JarFile jarFile;
+        try {
+            final java.lang.reflect.Method runtimeVersionMethod = JarFile.class.getMethod("runtimeVersion");
+            final Object runtimeVersion = runtimeVersionMethod.invoke(null);
+            @SuppressWarnings("JavaReflectionMemberAccess") final java.lang.reflect.Constructor<JarFile> constructor = JarFile.class.getConstructor(File.class, boolean.class, int.class, runtimeVersion.getClass());
+            jarFile = constructor.newInstance(file, true, java.util.zip.ZipFile.OPEN_READ, runtimeVersion);
+        } catch (Exception ignored) {
+            jarFile = new JarFile(file);
+        }
+        this.jar = jarFile;
+        // Paper end
         this.manifest = jar.getManifest();
         this.url = file.toURI().toURL();
 
